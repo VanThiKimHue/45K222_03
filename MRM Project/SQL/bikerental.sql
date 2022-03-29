@@ -89,7 +89,7 @@ INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, 
 
 INSERT INTO `KhachHang` (`id`, `HoVaTen`, `Email`, `CCCD`, `SoDienThoai`, `NgaySinh`, `DiaChi`, `Quan`, `ThanhPho`, `RegDate`, `UpdationDate`) VALUES
 (1, 'Harry Den', 'demo@gmail.com', '951365745213', '2147483647', '2001-11-11', '336 Cua Dai', 'Hải Châu', 'Đà Nẵng', '2017-06-17 19:59:27', '2017-06-26 21:02:58');
-ALTER TABLE `KhachHang`
+
 --
 -- tạo bảng hãng xe
 CREATE TABLE IF NOT EXISTS `HangXe` (
@@ -112,8 +112,8 @@ CREATE TABLE IF NOT EXISTS `DatHang` (
   `id` int(11) NOT NULL PRIMARY KEY,
   `Email` varchar(100) DEFAULT NULL,
   `BienSoXe` varchar(11) DEFAULT NULL,
-  `NgayThue` varchar(20) DEFAULT NULL,
-  `NgayTra` varchar(20) DEFAULT NULL,
+  `NgayThue` date DEFAULT NULL,
+  `NgayTra` date DEFAULT NULL,
   `GhiChu` varchar(255) DEFAULT NULL,
   `PostingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -122,9 +122,10 @@ CREATE TABLE IF NOT EXISTS `DatHang` (
 -- nhập thông tin vào bảng đặt hàng
 --
 
-INSERT INTO `DatHang` (`id`, `Email`, `BienSoXe`, `NgayThue`, `NgayTra`, `GhiChu`) VALUES
-(1, 'test@gmail.com', '43C1-55035', '22/06/2017', '25/06/2017', 'Lorem ipsum', 'Xedep');
+INSERT INTO `DatHang` (`id`, `Email`, `BienSoXe`, `NgayThue`, `NgayTra`, `GhiChu`, `PostingDate`) VALUES
+(1, 'test@gmail.com', '43C1-55035', '2017-06-17', '2017-06-19','Xedep','2017-06-17 19:59:27');
 -- --------------------------------------------------------
+
 
 
 -- Tạo khóa tự động cho bảng
@@ -143,3 +144,7 @@ ALTER TABLE `thongtinxe`
 -- bảng đặt hàng
 ALTER TABLE `DatHang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
