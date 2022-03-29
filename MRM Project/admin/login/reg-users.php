@@ -7,16 +7,16 @@ if(strlen($_SESSION['alogin'])==0)
 header('location:index.php');
 }
 else{
-// if(isset($_GET['del']))
-// {
-// $id=$_GET['del'];
-// $sql = "delete from tblbrands  WHERE id=:id";
-// $query = $dbh->prepare($sql);
-// $query -> bindParam(':id',$id, PDO::PARAM_STR);
-// $query -> execute();
-// $msg="Page data updated  successfully";
+if(isset($_GET['del']))
+{
+$id=$_GET['del'];
+$sql = "delete from khachhang  WHERE id=:id";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> execute();
+$msg="Dữ liệu khách hàng đã được xóa";
 
-// }
+}
 
 
 
@@ -96,7 +96,6 @@ else{
 										<tr>
 										<th>#</th>
 												<th> Họ và Tên</th>
-											<th>Email </th>
 											<th>Số điện thoại</th>
 											<th>CCCD</th>
 										<th>Ngày Sinh</th>
@@ -104,6 +103,7 @@ else{
 										<th>Quận/Huyện</th>
 										<th>Thành phố</th>
 										<th>Ngày thuê xe</th>
+										<th>Chỉnh sửa</th>
 
 										</tr>
 									</thead>
@@ -111,7 +111,6 @@ else{
 										<tr>
 										<th>#</th>
 											<th> Họ và Tên</th>
-											<th>Email </th>
 											<th>Số điện thoại</th>
 											<th>CCCD</th>
 										<th>Ngày Sinh</th>
@@ -119,6 +118,7 @@ else{
 										<th>Quận/Huyện</th>
 										<th>Thành phố</th>
 										<th>Ngày thuê xe</th>
+										<th>Chỉnh sửa</th>
 										</tr>
 										</tr>
 									</tfoot>
@@ -136,7 +136,6 @@ foreach($results as $result)
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->HoVaTen);?></td>
-											<td><?php echo htmlentities($result->Email);?></td>
 											<td><?php echo htmlentities($result->SoDienThoai);?></td>
 											<td><?php echo htmlentities($result->CCCD);?></td>
 											<td><?php echo htmlentities($result->NgaySinh);?></td>
@@ -144,6 +143,8 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->Quan);?></td>
 											<td><?php echo htmlentities($result->ThanhPho);?></td>
 											<td><?php echo htmlentities($result->RegDate);?></td>
+		<td><a href="edit-users.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+<a href="reg-users.php?del=<?php echo $result->id;?>" onclick="return confirm('Bạn có muốn xóa thông tin khách hàng');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 
