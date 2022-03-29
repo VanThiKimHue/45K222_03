@@ -43,7 +43,7 @@ INSERT INTO `admin` (`id`, `UserName`, `Password`, `updationDate`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblbooking`
+-- Table structure for table `DatHang`
 --
 
 CREATE TABLE IF NOT EXISTS `DatHang` (
