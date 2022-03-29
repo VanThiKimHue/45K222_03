@@ -66,11 +66,11 @@ CREATE TABLE IF NOT EXISTS`thongtinxe` (
 --
 
 INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, `NamSanXuat`, `Type`, `Vimage1`, `Vimage2`, `Vimage3`, `Vimage4`, `Vimage5`, `MuBaoHiem`, `GiaDoDienThoai`, `GheNgoiChoTreEm`, `RegDate`, `UpdationDate`) VALUES
-(1, 'SS400', 2, 'test', 345345, 2016, '', 'knowledges_base_bg.jpg', '20170523_145633.jpg', 'codepro.png', 'social-icons.png', '', 1, 1, 1, '2022-03-23 07:46:44', NULL),
-(2, '232132', 3, 'fsdaf', 110000, 2018, 'Xe Ga', 'featured-img-300.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 18:16:37', NULL),
-(3, '43ss1', 2, 'không', 100000, 2018, 'Xe Ga', 'nmax.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 11:07:00', NULL),
-(4, '43C2-59434', 3, 'không có', 120000, 2018, 'Xe Côn', 'bike_755x430.png', '', '', '', '', NULL, NULL, NULL, '2022-03-23 11:17:58', NULL),
-(5, '43C2-59436', 3, 'không', 110000, 2018, 'Xe Số', 'front-image.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 16:54:03', NULL);
+(1, 'SS400', 1, 'test', 345345, 2016, '', 'knowledges_base_bg.jpg', '20170523_145633.jpg', 'codepro.png', 'social-icons.png', '', 1, 1, 1, '2022-03-23 07:46:44', NULL),
+(2, '232132', 1, 'fsdaf', 110000, 2018, 'Xe Ga', 'featured-img-300.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 18:16:37', NULL),
+(3, '43ss1', 1, 'không', 100000, 2018, 'Xe Ga', 'nmax.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 11:07:00', NULL),
+(4, '43C2-59434', 1, 'không có', 120000, 2018, 'Xe Côn', 'bike_755x430.png', '', '', '', '', NULL, NULL, NULL, '2022-03-23 11:17:58', NULL),
+(5, '43C2-59436', 1, 'không', 110000, 2018, 'Xe Số', 'front-image.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 16:54:03', NULL);
 
 -- tạo bảng khách hàng
  CREATE TABLE IF NOT EXISTS `KhachHang` (
