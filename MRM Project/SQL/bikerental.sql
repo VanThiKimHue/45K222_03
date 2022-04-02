@@ -119,7 +119,7 @@ CREATE TABLE `dathang` (
   `DatTruoc` float NOT NULL DEFAULT 0,
   `ConLai` float NOT NULL DEFAULT 0,
   `GhiChu` varchar(255) DEFAULT NULL,
-  `TinhTrang` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Picked -up, 1 =Returned',
+  `TinhTrang` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Picked -up, 1 =Returned, 2=Cancelled',
   `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
   `NgayCapNhat` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
