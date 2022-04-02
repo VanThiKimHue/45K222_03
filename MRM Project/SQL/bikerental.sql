@@ -108,23 +108,29 @@ INSERT INTO `HangXe` (`id`, `TenHang`, `CreationDate`, `UpdationDate`) VALUES
 -- tạo bảng đặt hàng
 --
 
-CREATE TABLE IF NOT EXISTS `DatHang` (
-  `id` int(11) NOT NULL PRIMARY KEY,
-  `Email` varchar(100) DEFAULT NULL,
-  `BienSoXe` varchar(11) DEFAULT NULL,
-  `NgayThue` date DEFAULT NULL,
-  `NgayTra` date DEFAULT NULL,
+CREATE TABLE `dathang` (
+  `id` int(30) NOT NULL PRIMARY KEY,
+  `idkhachhang` int(30) NOT NULL,
+  `idxe` int(30) NOT NULL,
+  `NgayThue` date NOT NULL,
+  `NgayTra` date NOT NULL,
+  `SoNgayThue` int(11) NOT NULL DEFAULT 0,
+  `GiaTriHopDong` float NOT NULL DEFAULT 0,
+  `DatTruoc` float NOT NULL DEFAULT 0,
+  `ConLai` float NOT NULL DEFAULT 0,
   `GhiChu` varchar(255) DEFAULT NULL,
-  `PostingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `TinhTrang` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Picked -up, 1 =Returned',
+  `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
+  `NgayCapNhat` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- nhập thông tin vào bảng đặt hàng
 --
 
-INSERT INTO `DatHang` (`id`, `Email`, `BienSoXe`, `NgayThue`, `NgayTra`, `GhiChu`, `PostingDate`) VALUES
-(1, 'test@gmail.com', '43C1-55035', '2017-06-17', '2017-06-19','Xedep','2017-06-17 19:59:27');
--- --------------------------------------------------------
+INSERT INTO `dathang` (`id`, `idkhachhang`, `idxe`, `NgayThue`, `NgayTra`,`SoNgayThue`, `GiaTriHopDong`, `DatTruoc`, `ConLai`, `GhiChu`, `TinhTrang`, `NgayNhap`,`NgayCapNhat`) 
+VALUES
+(1, 1, 2, '2022-04-1', '2022-04-5', 5,550000, 100000, 450000, 'Nón bảo hiểm', 0,'2022-04-1 06:59:27',null);
 
 
 
@@ -143,6 +149,8 @@ ALTER TABLE `thongtinxe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 -- bảng đặt hàng
 ALTER TABLE `DatHang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `dathang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
