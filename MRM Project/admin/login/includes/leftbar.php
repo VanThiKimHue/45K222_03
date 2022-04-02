@@ -17,12 +17,17 @@
 						<li><a href="manage-vehicles.php">Quản lý xe</a></li>
 					</ul>
 				</li>
-				<li><a href="#"><i class="fa fa-files-o"></i> Người dùng</a>
+				<li><a href="#"><i class="fa fa-files-o"></i> Khách hàng</a>
 				<ul>
 				<li><a href="add-users.php">Thêm khách hàng</a></li>
 				<li><a href="reg-users.php">Danh sách</a></li>
 			    </ul>
 			    </li>
-
+			    <li><a href="#"><i class="fa fa-users"></i> Quản lý đơn thuê xe</a>
+			     <ul>
+			     	<li><a href=" add-bookings.php">Thêm đơn mới</a></li>
+			    	<li><a href=" manage-bookings.php">Danh sách</a></li>
+			     </ul>
+			    </li>
 			</ul>
 		</nav>
