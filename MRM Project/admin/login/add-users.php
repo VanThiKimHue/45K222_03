@@ -43,7 +43,7 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 }
 	?>
 
-<!-- Hiển thị giao diện thêm sản phẩm -->
+<!-- Hiển thị giao diện thêm khách hàng -->
 <!doctype html>
 <html lang="en" class="no-js">
 
