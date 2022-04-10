@@ -108,7 +108,7 @@ INSERT INTO `HangXe` (`id`, `TenHang`, `CreationDate`, `UpdationDate`) VALUES
 -- tạo bảng đặt hàng
 --
 
-CREATE TABLE `dathang` (
+CREATE TABLE IF NOT EXISTS `dathang` (
   `id` int(30) NOT NULL PRIMARY KEY,
   `idkhachhang` int(30) NOT NULL,
   `idxe` int(30) NOT NULL,
@@ -132,7 +132,37 @@ INSERT INTO `dathang` (`id`, `idkhachhang`, `idxe`, `NgayThue`, `NgayTra`,`SoNga
 VALUES
 (1, 1, 2, '2022-04-1', '2022-04-5', 5,550000, 100000, 450000, 'Nón bảo hiểm', 0,'2022-04-1 06:59:27',null);
 
+--Tạo bảng bảo dưỡng
+CREATE TABLE IF NOT EXISTS `baoduong` (
+  `id` int(30) NOT NULL PRIMARY KEY,
+  `idxe` int(30) NOT NULL,
+  `ODO` int NOT NULL,
+  `num` int(1) NOT NULL,
+  `NgayThayDau` date NOT NULL,
+  `NgayBDGN` date NOT NULL,
+  `NgayBDTT` date NOT NULL,
+  `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
+  `NgayCapNhat` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `baoduong` (`id`, `idxe`, `ODO`, `num`,`NgayThayDau`,`NgayBDGN`,`NgayBDTT`, `NgayNhap`,`NgayCapNhat`) 
+VALUES
+(1, 1, 10000, 1,'2022-04-1','2022-04-1','2022-07-1','2022-04-1 06:59:27',null);
+
+-- Tạo bảng bảo hiểm
+CREATE TABLE IF NOT EXISTS `baohiem` (
+  `id` int(30) NOT NULL PRIMARY KEY,
+  `idxe` int(30) NOT NULL,
+  `NgayMua` date NOT NULL,
+  `NgayHet` date NOT NULL,
+  `SoTien` int NOT NULL,
+  `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
+  `NgayCapNhat` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `baohiem` (`id`, `idxe`, `NgayMua`, `NgayHet`, `SoTien`, `NgayNhap`,`NgayCapNhat`) 
+VALUES
+(1, 1, '2022-04-1','2023-04-1', 65000,'2022-04-1 06:59:27',null);
 
 -- Tạo khóa tự động cho bảng
 --  bảng admin
@@ -153,6 +183,11 @@ ALTER TABLE `DatHang`
 ALTER TABLE `dathang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
+ALTER TABLE `baoduong`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+ALTER TABLE `baohiem`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
