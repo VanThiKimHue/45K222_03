@@ -6,6 +6,7 @@ if(strlen($_SESSION['alogin'])==0)
 	{
 header('location:index.php');
 }else{
+
 if(isset($_POST['submit']))
 {
 $khachhang=$_POST['khachhang'];
@@ -18,7 +19,7 @@ $datcoc=$_POST['datcoc'];
 $conlai=$_POST['conlai'];
 $ghichu=$_POST['ghichu'];
 $id=intval($_GET['id']);
-$sql="update dathang set idkhachhang=:khachhang,idxe=:xethue,NgayThue=:ngaythue,NgayTra=:ngaytra,SoNgayThue=:songaythue,GiaTriHopDong=:giatrihopdong,DatTruoc=:datcoc,ConLai=:conlai,GhiChu=:ghichu where id=:id)";
+$sql="update  dathang set idkhachhang=:khachhang,idxe=:xethue,NgayThue=:ngaythue,NgayTra=:ngaytra,SoNgayThue=:songaythue,GiaTriHopDong=:giatrihopdong,DatTruoc=:datcoc,ConLai=:conlai,GhiChu=:ghichu where id=:id";
 $query = $dbh->prepare($sql);
 $query->bindParam(':khachhang',$khachhang,PDO::PARAM_STR);
 $query->bindParam(':xethue',$xethue,PDO::PARAM_STR);
@@ -31,15 +32,7 @@ $query->bindParam(':conlai',$conlai,PDO::PARAM_STR);
 $query->bindParam(':ghichu',$ghichu,PDO::PARAM_STR);
 $query->bindParam(':id',$id,PDO::PARAM_STR);
 $query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
-{
-$msg=" Đăng thành công";
-}
-else
-{
-$error=" Có lỗi xảy ra. Vui lòng thử lại";
-}
+$msg="Cập nhật thông tin xe thành công";
 }
 
 if(isset($_POST['back']))
@@ -118,11 +111,12 @@ exit;
 							<div class="col-md-12">
 								<div class="panel panel-default">
 									<div class="panel-heading">Thông Tin Cơ bản</div>
+									<div class="panel-body">
 <?php if($error){?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 <?php
 $id=intval($_GET['id']);
-$sql ="SELECT dathang.*,khachhang.HoVaTen,thongtinxe.TenXe,thongtinxe.GiaThueTheoNgay,thongtinxe.id as vid
+$sql ="SELECT dathang.*,khachhang.HoVaTen,khachhang.id as cid, thongtinxe.TenXe,thongtinxe.GiaThueTheoNgay, thongtinxe.id as vid
 from dathang 
 join khachhang on dathang.idkhachhang=khachhang.id 
 join thongtinxe on dathang.idxe=thongtinxe.id 
@@ -131,54 +125,68 @@ $query = $dbh -> prepare($sql);
 $query-> bindParam(':id', $id, PDO::PARAM_STR);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
-// $cnt=1;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
 {	?>
 
-	<div class="panel-body">
-
 <form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" onSubmit="return valid();">
 <div class="form-group">
  <label class="col-sm-2 control-label">Khách hàng<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  	<input class="form-control" name="khachhang" value="<?php echo htmlentities($result->HoVaTen);?>" required readonly>
-
-    </input>
- </div>
-
- <div class="form-group">
- <label class="col-sm-2 control-label">Xe Thuê<span style="color:red">*</span></label>
- <div class="col-sm-3">
-	<select class="selectpicker" name="xethue">
-	<option value="<?php echo htmlentities($result->bid);?>"><?php echo htmlentities($bdname=$result->TenXe);?></option>
-	<?php 
-	$ret="select id,TenXe from thongtinxe";
-	$query= $dbh -> prepare($ret);
-	$query-> execute();
-	$resultss = $query -> fetchAll(PDO::FETCH_OBJ);
-	if($query -> rowCount() > 0)
-	{
-	foreach($resultss as $results)
-	{
-		if($results->TenXe==$bdname)
+	<select class="selectpicker" name="khachhang" required >
+		<option value="<?php echo htmlentities($result->cid);?>"><?php echo htmlentities($cname=$result->HoVaTen); ?> </option>
+		<?php $ret="select id,HoVaTen from khachhang";
+		$query= $dbh -> prepare($ret);
+		//$query->bindParam(':id',$id, PDO::PARAM_STR);
+		$query-> execute();
+		$resultss = $query -> fetchAll(PDO::FETCH_OBJ);
+		if($query -> rowCount() > 0)
+		{
+		foreach($resultss as $results)
+		{
+		if($results->HoVaTen==$cname)
 		{
 		continue;
-	}else{
-	?>
+		} else{
+		?>
+		<option value="<?php echo htmlentities($results->id);?>"><?php echo htmlentities($results->HoVaTen); ?></option>
+	<?php }}} ?>
+
+	</select>
+ </div>
+
+ <label class="col-sm-2 control-label">Xe Thuê<span style="color:red">*</span></label>
+  <div class="col-sm-3">
+	<select class="selectpicker" name="xethue">
+	<option value="<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($bdname=$result->TenXe);?></option>
+		<?php 
+		$ret="select id,TenXe from thongtinxe";
+		$query= $dbh -> prepare($ret);
+		$query-> execute();
+		$resultss = $query -> fetchAll(PDO::FETCH_OBJ);
+		if($query -> rowCount() > 0)
+		{
+		foreach($resultss as $results)
+		{
+			if($results->TenXe==$bdname)
+			{
+			continue;
+		}else{
+		?>
 	<option value="<?php echo htmlentities($results->id);?>"><?php echo htmlentities($results->TenXe);?></option>
 	<?php }}} ?>
 
     </select>
  </div>
+
 </div>
-</div>
+
 
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày Thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input  class="fromdate" name="ngaythue"  value="<?php echo htmlentities($result->NgayThue);?>" required readonly>
+ <input  class="fromdate" name="ngaythue"  value="<?php echo htmlentities($result->NgayThue);?>" required >
 </div>
 </div>
 
@@ -243,7 +251,7 @@ function calculate() {
 </div>
  <label class="col-sm-2 control-label">Giá trị hợp đồng(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input type="text" name="giatrihopdong" class="form-control" jAutoCalc="{songaythue}*{giathue}" required readonly>
+  <input type="text" name="giatrihopdong" class="form-control"  jAutoCalc="{songaythue}*{giathue}" required readonly>
  </div>
 </div>
 
@@ -254,7 +262,7 @@ function calculate() {
  </div>
   <label class="col-sm-2 control-label">Còn lại(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input type="text" name="conlai" class="form-control" value="<?php echo htmlentities($result->ConLai);?>" jAutoCalc="{giatrihopdong} - {datcoc}" required readonly>
+  <input type="text" name="conlai" class="form-control"  jAutoCalc="{giatrihopdong} - {datcoc}" required readonly>
  </div>
 </div>
 
@@ -264,8 +272,6 @@ function calculate() {
  <div class="col-sm-8">
   <input type="text" name="ghichu" class="form-control" rows="3" value="<?php echo htmlentities($result->GhiChu);?>">
  </div>
-</div>
-</div>
 </div>
 <?php }} ?>
 
@@ -278,7 +284,7 @@ function calculate() {
 
 											<div class="form-group" >
 												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
-													<button class="btn btn-default" type="back" name="back" style="font-size:medium">Hủy</button>
+													<button class="btn btn-default" type="back" name="back" style="font-size:medium">Quay lại</button>
 													<button class="btn btn-primary" name="submit" type="submit" id="submit"style="font-size: medium;">Cập nhật</button>
 												</div>
 											</div>

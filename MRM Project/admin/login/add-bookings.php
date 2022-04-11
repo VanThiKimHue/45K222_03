@@ -246,7 +246,7 @@ function calculate() {
 <div class="form-group">
  <label class="col-sm-2 control-label">Ghi Chú</label>
  <div class="col-sm-8">
-  <textarea type="text" name="ghichu" class="form-control" rows="3"></textarea>
+  <input type="text" name="ghichu" class="form-control" rows="3">
  </div>
 </div>
 </div>
