@@ -132,7 +132,7 @@ INSERT INTO `dathang` (`id`, `idkhachhang`, `idxe`, `NgayThue`, `NgayTra`,`SoNga
 VALUES
 (1, 1, 2, '2022-04-1', '2022-04-5', 5,550000, 100000, 450000, 'Nón bảo hiểm', 0,'2022-04-1 06:59:27',null);
 
---Tạo bảng bảo dưỡng
+-- Tạo bảng bảo dưỡng
 CREATE TABLE IF NOT EXISTS `baoduong` (
   `id` int(30) NOT NULL PRIMARY KEY,
   `idxe` int(30) NOT NULL,
