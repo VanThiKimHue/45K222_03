@@ -25,9 +25,17 @@
 			    </li>
 			    <li><a href="#"><i class="fa fa-users"></i> Quản lý đơn thuê xe</a>
 			     <ul>
-			     	<li><a href=" add-bookings.php">Thêm đơn mới</a></li>
-			    	<li><a href=" manage-bookings.php">Danh sách</a></li>
+			     	<li><a href="add-bookings.php">Thêm đơn mới</a></li>
+			    	<li><a href="manage-bookings.php">Danh sách</a></li>
 			     </ul>
 			    </li>
+				<li><a href="#"><i class="fa fa-users"></i> Quản lý bảo dưỡng, bảo hiểm</a>
+			     <ul>
+			     	<li><a href="manage-maintenance.php">Quản lý bảo dưỡng</a></li>
+			    	<li><a href="manage-insurance.php">Quản lý bảo hiểm</a></li>
+			     </ul>
+			    </li>
+
+
 			</ul>
 		</nav>
