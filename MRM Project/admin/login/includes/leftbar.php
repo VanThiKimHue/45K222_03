@@ -29,9 +29,10 @@
 			    	<li><a href="manage-bookings.php">Danh sách</a></li>
 			     </ul>
 			    </li>
-				<li><a href="#"><i class="fa fa-users"></i> Quản lý bảo dưỡng, bảo hiểm</a>
+				<li><a href="#"><i class="fa fa-users"></i> Quản lý bảo dưỡng, sửa chữa, bảo hiểm</a>
 			     <ul>
 			     	<li><a href="manage-maintenance.php">Quản lý bảo dưỡng</a></li>
+			     	<li><a href="manage-repair.php">Quản lý sửa chữa</a></li>
 			    	<li><a href="manage-insurance.php">Quản lý bảo hiểm</a></li>
 			     </ul>
 			    </li>
