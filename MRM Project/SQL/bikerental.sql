@@ -132,7 +132,8 @@ INSERT INTO `dathang` (`id`, `idkhachhang`, `idxe`, `NgayThue`, `NgayTra`,`SoNga
 VALUES
 (1, 1, 2, '2022-04-1', '2022-04-5', 5,550000, 100000, 450000, 'Nón bảo hiểm', 0,'2022-04-1 06:59:27',null);
 
--- Tạo bảng bảo dưỡng
+--Tạo bảng bảo dưỡng
+
 CREATE TABLE IF NOT EXISTS `baoduong` (
   `id` int(30) NOT NULL PRIMARY KEY,
   `idxe` int(30) NOT NULL,
@@ -149,20 +150,36 @@ INSERT INTO `baoduong` (`id`, `idxe`, `ODO`, `num`,`NgayThayDau`,`NgayBDGN`,`Nga
 VALUES
 (1, 1, 10000, 1,'2022-04-1','2022-04-1','2022-07-1','2022-04-1 06:59:27',null);
 
--- Tạo bảng bảo hiểm
-CREATE TABLE IF NOT EXISTS `baohiem` (
+-- Tạo bảng sửa chữa
+
+CREATE TABLE IF NOT EXISTS `suachua` (
   `id` int(30) NOT NULL PRIMARY KEY,
   `idxe` int(30) NOT NULL,
-  `NgayMua` date NOT NULL,
-  `NgayHet` date NOT NULL,
+  `GhiChu` longtext NOT NULL,
   `SoTien` int NOT NULL,
   `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
   `NgayCapNhat` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `baohiem` (`id`, `idxe`, `NgayMua`, `NgayHet`, `SoTien`, `NgayNhap`,`NgayCapNhat`) 
+INSERT INTO `suachua` (`id`, `idxe`, `GhiChu`, `SoTien`, `NgayNhap`,`NgayCapNhat`) 
 VALUES
-(1, 1, '2022-04-1','2023-04-1', 65000,'2022-04-1 06:59:27',null);
+(1, 1, 'thay lop', 65000,'2022-04-1 06:59:27',null);
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+-- Tạo bảng bảo hiểm
+CREATE TABLE IF NOT EXISTS `suachua` (
+  `id` int(30) NOT NULL PRIMARY KEY,
+  `idxe` int(30) NOT NULL,
+  `GhiChu` longtext NOT NULL,
+  `SoTien` int NOT NULL,
+  `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
+  `NgayCapNhat` datetime DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `suachua` (`id`, `idxe`, `GhiChu`, `SoTien`, `NgayNhap`,`NgayCapNhat`) 
+VALUES
+(1, 1, 'thay lop', 65000,'2022-04-1 06:59:27',null);
 
 -- Tạo khóa tự động cho bảng
 --  bảng admin
@@ -184,6 +201,8 @@ ALTER TABLE `dathang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 ALTER TABLE `baoduong`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `suachua`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 ALTER TABLE `baohiem`
