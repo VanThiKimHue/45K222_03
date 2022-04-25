@@ -17,6 +17,12 @@ $giatrihopdong=$_POST['giatrihopdong'];
 $datcoc=$_POST['datcoc'];
 $conlai=$_POST['conlai'];
 $ghichu=$_POST['ghichu'];
+$tinhtrang="1";
+$sql1="UPDATE thongtinxe SET TinhTrang=:tinhtrang where id=:xethue";
+$query = $dbh->prepare($sql1);
+$query -> bindParam(':tinhtrang',$tinhtrang, PDO::PARAM_STR);
+$query-> bindParam(':xethue',$xethue, PDO::PARAM_STR);
+$query -> execute();
 $sql="INSERT INTO  dathang (idkhachhang,idxe,NgayThue,NgayTra,SoNgayThue,GiaTriHopDong,DatTruoc,ConLai,GhiChu) VALUES(:khachhang,:xethue,:ngaythue,:ngaytra,:songaythue,:giatrihopdong,:datcoc,:conlai,:ghichu)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':khachhang',$khachhang,PDO::PARAM_STR);
@@ -73,6 +79,11 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
 <style>
 		.errorWrap {
     padding: 10px;
@@ -89,6 +100,17 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
     border-left: 4px solid #5cb85c;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.chosen-container {
+font-size:18px;
+}
+
+.chosen-container-single .chosen-single {
+    height: 40px;
+    padding: 7px 0 0 8px;
+}
+.chosen-container-single .chosen-single div{
+top:7px;
 }
 		</style>
 
@@ -119,7 +141,7 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 <div class="form-group">
  <label class="col-sm-2 control-label">Khách hàng<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  	<select class="selectpicker" name="khachhang" required>
+  	<select class="form-control" name="khachhang" id="khachhang" required readonly>
 	<option value=""> Lựa chọn </option>
 	<?php 
 	$ret="select id,HoVaTen from khachhang";
@@ -140,36 +162,42 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
  <div class="form-group">
  <label class="col-sm-2 control-label">Xe Thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
-	<select class="selectpicker" name="xethue" required>
+	<select class="form-control" name="xethue" id="xethue" required>
 	<option value=""> Lựa chọn </option>
-	<?php $ret="select id,TenXe from thongtinxe";
+	<?php 
+	$t="";
+	$ret="select id,TenXe,GiaThueTheoNgay from thongtinxe where TinhTrang=0";
 	$query= $dbh -> prepare($ret);
 	$query-> execute();
 	$results = $query -> fetchAll(PDO::FETCH_OBJ);
 	if($query -> rowCount() > 0)
 	{
 	foreach($results as $result)
-	{
+	{ 
+		$t=$result->GiaThueTheoNgay;
 	?>
-	<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->TenXe);?></option>
-	<?php }} ?>
+	<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->TenXe);?> - <?php echo htmlentities($result->GiaThueTheoNgay);?> VNĐ/ngày</option>
+	<?php }}?>
+
 
     </select>
  </div>
+
 </div>
 </div>
+
 
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày Thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input  class="fromdate" name="ngaythue"  value="" required>
+ <input  class="fromdate form-control" name="ngaythue"  value="" required>
 </div>
 </div>
 
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày Trả<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input  class="todate" name="ngaytra" value="" required>
+ <input  class="todate form-control" name="ngaytra" value="" required>
 </div>
 </div>
 
@@ -178,7 +206,7 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 <div class="form-group">
  <label class="col-sm-2 control-label">Số ngày thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input  name="songaythue" id="songaythue"  class="calculated" value="" required readonly>
+  <input  name="songaythue" id="songaythue"  class="calculated form-control" value="" required readonly>
  </div>
 </div>
 <!-- > Tính số ngày thuê<-->
@@ -261,7 +289,7 @@ function calculate() {
 											<div class="form-group" >
 												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
 													<button class="btn btn-default" type="reset" style="font-size:medium">Hủy</button>
-													<button class="btn btn-primary" name="submit" type="submit" id="submit"style="font-size: medium;">Thêm đơn thuê xe</button>
+													<button class="btn btn-primary" name="submit" type="submit" id="submit" style="font-size: medium;">Thêm đơn thuê xe</button>
 												</div>
 											</div>
 </form>
@@ -285,7 +313,7 @@ function calculate() {
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<!-- <script src="js/bootstrap.min.js"></script> -->
 	<script src="js/jquery.dataTables.min.js"></script>
 	<script src="js/dataTables.bootstrap.min.js"></script>
 	<script src="js/Chart.min.js"></script>
@@ -294,6 +322,10 @@ function calculate() {
 	<script src="js/main.js"></script>
 	<script src="js/jautocalc.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+        $("#khachhang").chosen();
+		$("#xethue").chosen();
+    </script>
 </body>
 </html>
 <?php } ?>

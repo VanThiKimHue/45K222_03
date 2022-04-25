@@ -32,6 +32,11 @@ $query->bindParam(':conlai',$conlai,PDO::PARAM_STR);
 $query->bindParam(':ghichu',$ghichu,PDO::PARAM_STR);
 $query->bindParam(':id',$id,PDO::PARAM_STR);
 $query->execute();
+// $ret1="SELECT TinhTrang from thongtinxe where id=:xethue";
+// $query = $dbh->prepare($ret1);
+// $query->execute();
+// $results=$query->fetchAll(PDO::FETCH_OBJ);
+// if($results->TinhTrang==0)
 $msg="Cập nhật thông tin xe thành công";
 }
 
@@ -74,6 +79,11 @@ exit;
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
 <style>
 		.errorWrap {
     padding: 10px;
@@ -90,6 +100,17 @@ exit;
     border-left: 4px solid #5cb85c;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.chosen-container {
+font-size:18px;
+}
+
+.chosen-container-single .chosen-single {
+    height: 40px;
+    padding: 7px 0 0 8px;
+}
+.chosen-container-single .chosen-single div{
+top:7px;
 }
 		</style>
 
@@ -134,7 +155,7 @@ foreach($results as $result)
 <div class="form-group">
  <label class="col-sm-2 control-label">Khách hàng<span style="color:red">*</span></label>
  <div class="col-sm-3">
-	<select class="selectpicker" name="khachhang" required >
+	<select class="form-control" name="khachhang" id="khachhang" required >
 		<option value="<?php echo htmlentities($result->cid);?>"><?php echo htmlentities($cname=$result->HoVaTen); ?> </option>
 		<?php $ret="select id,HoVaTen from khachhang";
 		$query= $dbh -> prepare($ret);
@@ -158,9 +179,9 @@ foreach($results as $result)
 
  <label class="col-sm-2 control-label">Xe Thuê<span style="color:red">*</span></label>
   <div class="col-sm-3">
-	<select class="selectpicker" name="xethue">
+	<select class="form-control" name="xethue" id="xethue">
 	<option value="<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($bdname=$result->TenXe);?></option>
-		<?php 
+		<!-- <?php 
 		$ret="select id,TenXe from thongtinxe";
 		$query= $dbh -> prepare($ret);
 		$query-> execute();
@@ -175,7 +196,7 @@ foreach($results as $result)
 		}else{
 		?>
 	<option value="<?php echo htmlentities($results->id);?>"><?php echo htmlentities($results->TenXe);?></option>
-	<?php }}} ?>
+	<?php }}} ?> -->
 
     </select>
  </div>
@@ -186,14 +207,14 @@ foreach($results as $result)
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày Thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input  class="fromdate" name="ngaythue"  value="<?php echo htmlentities($result->NgayThue);?>" required >
+ <input  class="fromdate form-control" name="ngaythue"  value="<?php echo htmlentities($result->NgayThue);?>" required >
 </div>
 </div>
 
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày Trả<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input  class="todate" name="ngaytra" value="<?php echo htmlentities($result->NgayTra);?>" required>
+ <input  class="todate form-control" name="ngaytra" value="<?php echo htmlentities($result->NgayTra);?>" required>
 </div>
 </div>
 
@@ -202,7 +223,7 @@ foreach($results as $result)
 <div class="form-group">
  <label class="col-sm-2 control-label">Số ngày thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input  name="songaythue" id="songaythue"  class="calculated" value="<?php echo htmlentities($result->SoNgayThue);?>" required readonly>
+  <input  name="songaythue" id="songaythue"  class="calculated form-control" value="<?php echo htmlentities($result->SoNgayThue);?>" required readonly>
  </div>
 </div>
 <!-- > Tính số ngày thuê<-->
@@ -247,7 +268,7 @@ function calculate() {
 <div class="form-group">
 <label class="col-sm-2 control-label">Giá thuê(VND/ngày)<span style="color:red">*</span></label>
 <div class="col-sm-3">
-<input type="text" name="giathue" class="form-control" value="<?php echo htmlentities($result->GiaThueTheoNgay);?>" required readonly>
+<input type="text" name="giathue" class="form-control" value="<?php echo htmlentities(($result->GiaTriHopDong)/($result->SoNgayThue));?>" required readonly>
 </div>
  <label class="col-sm-2 control-label">Giá trị hợp đồng(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
@@ -309,7 +330,7 @@ function calculate() {
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<!-- <script src="js/bootstrap.min.js"></script> -->
 	<script src="js/jquery.dataTables.min.js"></script>
 	<script src="js/dataTables.bootstrap.min.js"></script>
 	<script src="js/Chart.min.js"></script>
@@ -318,6 +339,10 @@ function calculate() {
 	<script src="js/main.js"></script>
 	<script src="js/jautocalc.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+        $("#khachhang").chosen();
+		$("#xethue").chosen();
+    </script>
 </body>
 </html>
 <?php } ?>
