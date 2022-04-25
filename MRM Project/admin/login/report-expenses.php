@@ -229,6 +229,15 @@ foreach($results as $result)
 									</tbody>
 
 								</table>
+                                <form class="form-horizontal">
+                                <div class="form-group">
+                                            <label class="col-sm-5 control-label" style="color: #B20600; font-size: 18px">Tổng chi phí</label>
+                                            <div class="col-sm-2">
+                                                <input class="form-control"  value="<?php echo htmlentities($total);?>" readonly>
+                                                
+                                            </div>
+					            </div>
+                                </form>  
 							</div>
 						</div>
 
