@@ -50,14 +50,7 @@ CREATE TABLE IF NOT EXISTS`thongtinxe` (
   `GiaThueTheoNgay` int(11) DEFAULT NULL,
   `NamSanXuat` int(6) DEFAULT NULL,
   `Type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Vimage1` varchar(120) DEFAULT NULL,
-  `Vimage2` varchar(120) DEFAULT NULL,
-  `Vimage3` varchar(120) DEFAULT NULL,
-  `Vimage4` varchar(120) DEFAULT NULL,
-  `Vimage5` varchar(120) DEFAULT NULL,
-  `MuBaoHiem` int(11) DEFAULT NULL,
-  `GiaDoDienThoai` int(11) DEFAULT NULL,
-  `GheNgoiChoTreEm` int(11) DEFAULT NULL,
+  `TinhTrang` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Free, 1 =Rented',
   `RegDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -65,12 +58,12 @@ CREATE TABLE IF NOT EXISTS`thongtinxe` (
 -- nhập dữ liệu bảng `thongtinxe`
 --
 
-INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, `NamSanXuat`, `Type`, `Vimage1`, `Vimage2`, `Vimage3`, `Vimage4`, `Vimage5`, `MuBaoHiem`, `GiaDoDienThoai`, `GheNgoiChoTreEm`, `RegDate`, `UpdationDate`) VALUES
-(1, 'SS400', 1, 'test', 345345, 2016, '', 'knowledges_base_bg.jpg', '20170523_145633.jpg', 'codepro.png', 'social-icons.png', '', 1, 1, 1, '2022-03-23 07:46:44', NULL),
-(2, '232132', 1, 'fsdaf', 110000, 2018, 'Xe Ga', 'featured-img-300.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 18:16:37', NULL),
-(3, '43ss1', 1, 'không', 100000, 2018, 'Xe Ga', 'nmax.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 11:07:00', NULL),
-(4, '43C2-59434', 1, 'không có', 120000, 2018, 'Xe Côn', 'bike_755x430.png', '', '', '', '', NULL, NULL, NULL, '2022-03-23 11:17:58', NULL),
-(5, '43C2-59436', 1, 'không', 110000, 2018, 'Xe Số', 'front-image.jpg', '', '', '', '', NULL, NULL, NULL, '2022-03-23 16:54:03', NULL);
+INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, `NamSanXuat`, `Type`, `TinhTrang`, `RegDate`, `UpdationDate`) VALUES
+(1, 'SS400', 1, 'test', 345345, 2016, 'Xe Số', 0, '2022-03-23 07:46:44', NULL),
+(2, '232132', 1, 'fsdaf', 110000, 2018, 'Xe Ga', 0, '2022-03-23 18:16:37', NULL),
+(3, '43ss1', 1, 'không', 100000, 2018, 'Xe Ga', 0, '2022-03-23 11:07:00', NULL),
+(4, '43C2-59434', 1, 'không có', 120000, 2018, 'Xe Côn', 0, '2022-03-23 11:17:58', NULL),
+(5, '43C2-59436', 1, 'không', 110000, 2018, 'Xe Số', 0, '2022-03-23 16:54:03', NULL);
 
 -- tạo bảng khách hàng
  CREATE TABLE IF NOT EXISTS `KhachHang` (
