@@ -11,12 +11,18 @@ if(isset($_REQUEST['eid']))
 	{
 $eid=intval($_GET['eid']);
 $tinhtrang="2";
+$xethue=intval($_GET['vid']);
+$tinhtrangxe="0";
 $sql = "UPDATE dathang SET TinhTrang=:tinhtrang WHERE  id=:eid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':tinhtrang',$tinhtrang, PDO::PARAM_STR);
 $query-> bindParam(':eid',$eid, PDO::PARAM_STR);
 $query -> execute();
-
+$sql1="UPDATE thongtinxe SET TinhTrang=:tinhtrangxe where id=:vid";
+$query = $dbh->prepare($sql1);
+$query -> bindParam(':tinhtrangxe',$tinhtrangxe, PDO::PARAM_STR);
+$query -> bindParam(':vid',$xethue, PDO::PARAM_STR);
+$query -> execute();
 $msg="Đơn thuê xe đã được hủy";
 }
 
@@ -25,16 +31,20 @@ if(isset($_REQUEST['aeid']))
 	{
 $aeid=intval($_GET['aeid']);
 $tinhtrang=1;
-
+$xethue=intval($_GET['vid']);
+$tinhtrangxe="0";
 $sql = "UPDATE dathang SET TinhTrang=:tinhtrang WHERE  id=:aeid";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':tinhtrang',$tinhtrang, PDO::PARAM_STR);
 $query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
 $query -> execute();
-
-$msg="Đã hoàn thành trả xe";
+$sql1="UPDATE thongtinxe SET TinhTrang=:tinhtrangxe where id=:vid";
+$query = $dbh->prepare($sql1);
+$query -> bindParam(':tinhtrangxe',$tinhtrangxe, PDO::PARAM_STR);
+$query -> bindParam(':vid',$xethue, PDO::PARAM_STR);
+$query -> execute();
+$msg="Đơn thuê xe đã được hoàn thành";
 }
-
 
  ?>
 
@@ -111,7 +121,7 @@ $msg="Đã hoàn thành trả xe";
       </div>
       <div class="modal-footer">
       	<!-- <button href="edit-booking.php?id=<?php echo $result->id;?>" name="edit" id="edit"type="button" class="btn btn-primary">Chỉnh sửa</button> -->
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: grey;">Đóng</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: grey; color: white; font-size: 14px;">Đóng</button>
         
       </div>
     </div>
@@ -141,31 +151,31 @@ $msg="Đã hoàn thành trả xe";
 										<tr>
 										<th>#</th>
 											<th>Khách hàng</th>
-											<!-- <th>Xe thuê</th> -->
+											<th>Xe thuê</th>
 											<th>Ngày thuê</th>
 											<th>Ngày trả</th>
 											<!-- <th>Ghi chú</th> -->
 											<th>Tình trạng</th>
 											<th>Ngày nhập</th>
-											<th>Chỉnh sửa</th>
+											<th>Hành động</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
 										<th>#</th>
 										<th>Khách hàng</th>
-											<!-- <th>Xe thuê</th> -->
+											<th>Xe thuê</th>
 											<th>Ngày thuê</th>
 											<th>Ngày trả</th>
 											<!-- <th>Ghi chú</th> -->
 											<th>Tình trạng</th>
 											<th>Ngày nhập</th>
-											<th>Chỉnh sửa</th>
+											<th>Hành động</th>
 										</tr>
 									</tfoot>
 									<tbody>
 
-									<?php $sql = "SELECT khachhang.HoVaTen,dathang.NgayThue,dathang.NgayTra,dathang.GhiChu,dathang.idxe as vid,dathang.TinhTrang,dathang.NgayNhap,dathang.id  
+									<?php $sql = "SELECT khachhang.HoVaTen,thongtinxe.TenXe,dathang.NgayThue,dathang.NgayTra,dathang.GhiChu,dathang.idxe as vid,dathang.TinhTrang,dathang.NgayNhap,dathang.id  
 									from dathang 
 									join thongtinxe on thongtinxe.id=dathang.idxe 
 									join khachhang on khachhang.id=dathang.idkhachhang";
@@ -180,27 +190,25 @@ foreach($results as $result)
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->HoVaTen);?></td>
+											<td><?php echo htmlentities($result->TenXe);?></td>
 											<td><?php echo htmlentities($result->NgayThue);?></td>
 											<td><?php echo htmlentities($result->NgayTra);?></td>
-											<td><?php
-													if($result->TinhTrang==0)
-													{
-													echo htmlentities('Đã giao xe');
-													} else if ($result->TinhTrang==1) {
-													echo htmlentities('Đã trả xe');
-													} else {
-														echo htmlentities('Đã hủy đơn');
-													}
-
-										?></td>
+											<td>
+												<?php if($result->TinhTrang==0): ?>
+													<span class="badge badge-primary" style="font-size: 14px;">Đã giao xe</span>
+												<?php elseif($result->TinhTrang==1): ?>
+													 <span >Đã trả xe</span>
+												 <?php elseif($result->TinhTrang==2): ?>
+													 <span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đã hủy đơn</span>
+												<?php endif; ?>
+										</td>
 											<td><?php echo htmlentities($result->NgayNhap);?></td>
 										<td><a href="manage-bookings.php" id="<?php echo htmlentities($result->id);?>" class="view_btn" type="button"data-toggle="modal"  data-target="#myModal"> Xem chi tiết</a>/ 
 											<a href="edit-booking.php?id=<?php echo $result->id;?>" name="edit" id="edit" class="edit">Chỉnh sửa</a>/ 
-											<a href="manage-bookings.php?aeid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Confirm this booking')"> Hoàn Thành</a> /
 
-
-											<a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Bạn có muốn hủy đơn thuê xe này?')"> Hủy</a>
-</td>
+											<a href="manage-bookings.php?aeid=<?php echo htmlentities($result->id);?>&vid=<?php echo htmlentities($result->vid);?>" onclick="return confirm('Bạn có muốn hoàn thành đơn thuê xe này?')"> Hoàn Thành</a> /
+											<a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>&vid=<?php echo htmlentities($result->vid);?>"  name="cancell" type="button" onclick="return confirm('Bạn có muốn hủy đơn thuê xe này?')"> Hủy</a>
+										</td>
 
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
@@ -244,7 +252,8 @@ foreach($results as $result)
 				}
 			});
 	})
-	})	
+	})
+
 </script>
 	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
