@@ -22,14 +22,10 @@ $vimage3=$_FILES["img3"]["name"];
 $vimage4=$_FILES["img4"]["name"];
 $vimage5=$_FILES["img5"]["name"];
 $type=$_POST['type'];
-move_uploaded_file($_FILES["img1"]["tmp_name"],"img/vehicleimages/".$_FILES["img1"]["name"]);
-move_uploaded_file($_FILES["img2"]["tmp_name"],"img/vehicleimages/".$_FILES["img2"]["name"]);
-move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img3"]["name"]);
-move_uploaded_file($_FILES["img4"]["tmp_name"],"img/vehicleimages/".$_FILES["img4"]["name"]);
-move_uploaded_file($_FILES["img5"]["tmp_name"],"img/vehicleimages/".$_FILES["img5"]["name"]);
 
-$sql="INSERT INTO thongtinxe(TenXe,HangXe,MoTaXe,GiaThueTheoNgay,NamSanXuat,Type,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5) 
-VALUES(:tenxe,:hangxe,:motaxe,:giathue,:namsx,:type,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5)";
+
+$sql="INSERT INTO thongtinxe(TenXe,HangXe,MoTaXe,GiaThueTheoNgay,NamSanXuat,Type) 
+VALUES(:tenxe,:hangxe,:motaxe,:giathue,:namsx,:type)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':tenxe',$tenxe,PDO::PARAM_STR);
 $query->bindParam(':hangxe',$hangxe,PDO::PARAM_STR);
@@ -37,11 +33,6 @@ $query->bindParam(':motaxe',$motaxe,PDO::PARAM_STR);
 $query->bindParam(':giathue',$giathue,PDO::PARAM_STR);
 $query->bindParam(':namsx',$namsx,PDO::PARAM_STR);
 $query->bindParam(':type',$type,PDO::PARAM_STR);
-$query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
-$query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
-$query->bindParam(':vimage3',$vimage3,PDO::PARAM_STR);
-$query->bindParam(':vimage4',$vimage4,PDO::PARAM_STR);
-$query->bindParam(':vimage5',$vimage5,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
@@ -86,6 +77,14 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
 <style>
 		.errorWrap {
     padding: 10px;
@@ -102,6 +101,17 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
     border-left: 4px solid #5cb85c;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.chosen-container {
+font-size:18px;
+}
+
+.chosen-container-single .chosen-single {
+    height: 40px;
+    padding: 7px 0 0 8px;
+}
+.chosen-container-single .chosen-single div{
+top:7px;
 }
 		</style>
 
@@ -134,23 +144,22 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 <input type="text" name="tenxe" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Hãng xe<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<select class="selectpicker" name="hangxe" required>
-<option value=""> Lựa chọn </option>
-<?php $ret="select id,TenHang from hangxe";
-$query= $dbh -> prepare($ret);
-// $query->bindParam(':id',$id, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
-{
-foreach($results as $result)
-{
-?>
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->TenHang);?></option>
-<?php }} ?>
-
-</select>
+<div class="col-sm-2">
+	<select  class="form-control" name="hangxe"  id="hangxe" value="" required>
+            <option value=""> Lựa chọn </option>
+            <?php 
+            $ret="select id,TenHang from hangxe";
+            $query= $dbh -> prepare($ret);
+            $query-> execute();
+            $results = $query -> fetchAll(PDO::FETCH_OBJ);
+            if($query -> rowCount() > 0)
+            {
+            foreach($results as $result)
+            {
+            ?>
+            <option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->TenHang);?></option>
+            <?php }} ?>
+	</select>
 </div>
 </div>
 
@@ -168,8 +177,8 @@ foreach($results as $result)
 <input type="text" name="giathue" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Loại xe<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<select class="selectpicker" name="type" required>
+<div class="col-sm-2">
+<select class="form-control" name="type" required>
 <option value=""> Lựa chọn </option>
 
 <option value="Xe Số">Xe số</option>
@@ -185,15 +194,12 @@ foreach($results as $result)
 <div class="col-sm-4">
 <input type="text" name="namsx" class="form-control" required>
 </div>
-<!-- <label class="col-sm-2 control-label">Số chổ ngồi<span style="color:red">*</span></label>
-<div class="col-sm-4">
-<input type="text" name="seatingcapacity" class="form-control" required>
-</div> -->
 </div>
+
 <div class="hr-dashed"></div>
 
 
-<div class="form-group">
+<!-- <div class="form-group">
 <div class="col-sm-12">
 <h4><b>Thêm hình ảnh</b></h4>
 </div>
@@ -219,7 +225,7 @@ Hình ảnh 4<input type="file" name="img4">
 </div>
 <div class="col-sm-4">
 Hình ảnh 5<input type="file" name="img5">
-</div>
+</div> -->
 
 </div>
 <div class="hr-dashed"></div>
@@ -257,7 +263,7 @@ Hình ảnh 5<input type="file" name="img5">
 	</div>
 
 	<!-- Loading Scripts -->
-	<script src="js/jquery.min.js"></script>
+	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
@@ -266,6 +272,11 @@ Hình ảnh 5<input type="file" name="img5">
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+
 </body>
+<script>
+        $("#hangxe").chosen();
+    </script>
 </html>
+
 <?php } ?>
