@@ -66,7 +66,7 @@ INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, 
 (5, '43C2-59436', 1, 'không', 110000, 2018, 'Xe Số', 0, '2022-03-23 16:54:03', NULL);
 
 -- tạo bảng khách hàng
- CREATE TABLE IF NOT EXISTS `KhachHang` (
+ CREATE TABLE IF NOT EXISTS `khachhang` (
   `id` int(11) NOT NULL primary key,
   `HoVaTen` varchar(120) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
@@ -80,12 +80,12 @@ INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, 
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `KhachHang` (`id`, `HoVaTen`, `Email`, `CCCD`, `SoDienThoai`, `NgaySinh`, `DiaChi`, `Quan`, `ThanhPho`, `RegDate`, `UpdationDate`) VALUES
+INSERT INTO `khachhang` (`id`, `HoVaTen`, `Email`, `CCCD`, `SoDienThoai`, `NgaySinh`, `DiaChi`, `Quan`, `ThanhPho`, `RegDate`, `UpdationDate`) VALUES
 (1, 'Harry Den', 'demo@gmail.com', '951365745213', '2147483647', '2001-11-11', '336 Cua Dai', 'Hải Châu', 'Đà Nẵng', '2017-06-17 19:59:27', '2017-06-26 21:02:58');
 
 --
 -- tạo bảng hãng xe
-CREATE TABLE IF NOT EXISTS `HangXe` (
+CREATE TABLE IF NOT EXISTS `hangxe` (
   `id` int(11) NOT NULL primary key,
   `TenHang` varchar(120) NOT NULL,
   `CreationDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `HangXe` (
 -- Thêm dữ liệu vào bảng HangXe
 --
 
-INSERT INTO `HangXe` (`id`, `TenHang`, `CreationDate`, `UpdationDate`) VALUES
+INSERT INTO `hangxe` (`id`, `TenHang`, `CreationDate`, `UpdationDate`) VALUES
 (1, 'KTM', '2017-06-18 16:24:34', NULL);
 -- tạo bảng đặt hàng
 --
@@ -178,17 +178,15 @@ VALUES
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 -- bảng khách hàng
-ALTER TABLE `KhachHang`
+ALTER TABLE `khachhang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- bảng hãng xe
-ALTER TABLE `HangXe`
+ALTER TABLE `hangxe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- Bảng thông tin xe
 ALTER TABLE `thongtinxe`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 -- bảng đặt hàng
-ALTER TABLE `DatHang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 ALTER TABLE `dathang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
