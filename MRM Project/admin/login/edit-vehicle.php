@@ -193,7 +193,7 @@ continue;
 <label class="col-sm-2 control-label">Loại xe<span style="color:red">*</span></label>
 <div class="col-sm-2">
 <select class="form-control" name="type" >
-<option value="<?php echo htmlentities($results->Type);?>" > <?php echo htmlentities($result->Type);?> </option>
+<option value="<?php echo htmlentities($result->Type);?>" > <?php echo htmlentities($result->Type);?> </option>
 
 <option value="Xe Số">Xe Số</option>
 <option value="Xe Ga">Xe Ga</option>
