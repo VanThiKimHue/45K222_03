@@ -1,5 +1,6 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900,100italic,300italic,400italic);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900,100italic,300italic,400italic);
 @import url(https://fonts.googleapis.com/css?family=Oswald:700,400,300);
+@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,100&display=swap);
 /****************************
 *   FOR RESPONSIVENESS      *
 ****************************/
@@ -50,6 +51,7 @@ a:hover {
 ****************************/
 .btn {
   font-family: 'Oswald', sans-serif;
+  font-size: 14px;
 }
 .btn i {
   position: relative;

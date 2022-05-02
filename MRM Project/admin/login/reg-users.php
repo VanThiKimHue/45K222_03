@@ -32,8 +32,8 @@ $msg="Dữ liệu khách hàng đã được xóa";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management |Admin Manage User   </title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -102,7 +102,7 @@ $msg="Dữ liệu khách hàng đã được xóa";
 										<th>Địa chỉ</th>
 										<th>Quận/Huyện</th>
 										<th>Thành phố</th>
-										<th>Ngày thuê xe</th>
+										<th>Ngày nhập</th>
 										<th>Chỉnh sửa</th>
 
 										</tr>
@@ -117,7 +117,7 @@ $msg="Dữ liệu khách hàng đã được xóa";
 										<th>Địa chỉ</th>
 										<th>Quận/Huyện</th>
 										<th>Thành phố</th>
-										<th>Ngày thuê xe</th>
+										<th>Ngày nhập</th>
 										<th>Chỉnh sửa</th>
 										</tr>
 										</tr>

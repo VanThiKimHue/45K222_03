@@ -58,8 +58,8 @@ $msg="Đơn thuê xe đã được hoàn thành";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Bike Rental Portal |Admin Manage testimonials   </title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -70,7 +70,7 @@ $msg="Đơn thuê xe đã được hoàn thành";
 	<!-- Bootstrap social button library -->
 	<link rel="stylesheet" href="css/bootstrap-social.css">
 	<!-- Bootstrap select -->
-	<link rel="stylesheet" href="css/bootstrap-select.css">
+	<!-- <link rel="stylesheet" href="css/bootstrap-select.css"> -->
 	<!-- Bootstrap file input -->
 	<link rel="stylesheet" href="css/fileinput.min.css">
 	<!-- Awesome Bootstrap checkbox -->
@@ -79,8 +79,8 @@ $msg="Đơn thuê xe đã được hoàn thành";
 	<link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
   <style>
 		.errorWrap {
     padding: 10px;
@@ -98,6 +98,7 @@ $msg="Đơn thuê xe đã được hoàn thành";
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
 }
+
 		</style>
 
 </head>
@@ -105,14 +106,12 @@ $msg="Đơn thuê xe đã được hoàn thành";
 <body>
 
 	<!-- Modal -->
-<div class="modal fade" id="viewbookingmodal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="viewbookingmodal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel" style="font-size:x-large">Thông tin chi tiết</h5>
-<!--         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> -->
+
       </div>
       <div class="modal-body">
         <div class="booking_viewing" style="font-size:large;">
@@ -120,7 +119,7 @@ $msg="Đơn thuê xe đã được hoàn thành";
         </div>
       </div>
       <div class="modal-footer">
-      	<!-- <button href="edit-booking.php?id=<?php echo $result->id;?>" name="edit" id="edit"type="button" class="btn btn-primary">Chỉnh sửa</button> -->
+
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: grey; color: white; font-size: 14px;">Đóng</button>
         
       </div>
@@ -156,6 +155,7 @@ $msg="Đơn thuê xe đã được hoàn thành";
 											<th>Ngày trả</th>
 											<!-- <th>Ghi chú</th> -->
 											<th>Tình trạng</th>
+											<th>Cảnh báo</th>
 											<th>Ngày nhập</th>
 											<th>Hành động</th>
 										</tr>
@@ -169,6 +169,7 @@ $msg="Đơn thuê xe đã được hoàn thành";
 											<th>Ngày trả</th>
 											<!-- <th>Ghi chú</th> -->
 											<th>Tình trạng</th>
+											<th>Cảnh báo</th>
 											<th>Ngày nhập</th>
 											<th>Hành động</th>
 										</tr>
@@ -183,10 +184,13 @@ $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
+$date = date('Y-m-d');
+$newdate = strtotime ( '+0 day' , strtotime ( $date ) ) ;
+$oneday= 24*60*60;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{				?>
+{		$d=strtotime($result->NgayTra)			?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->HoVaTen);?></td>
@@ -201,7 +205,16 @@ foreach($results as $result)
 												 <?php elseif($result->TinhTrang==2): ?>
 													 <span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đã hủy đơn</span>
 												<?php endif; ?>
-										</td>
+											</td>
+											<td>
+											<?php if(($d-$newdate)==0 ):?>
+												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đến hạn hợp đồng</span>
+												<?php elseif(($newdate-$d)>0):?>
+												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đã quá hạn hợp đồng</span>
+												<?php elseif(($newdate-$d)<0):?>
+												<span ></span> 
+												<?php endif; ?>
+											</td>
 											<td><?php echo htmlentities($result->NgayNhap);?></td>
 										<td><a href="manage-bookings.php" id="<?php echo htmlentities($result->id);?>" class="view_btn" type="button"data-toggle="modal"  data-target="#myModal"> Xem chi tiết</a>/ 
 											<a href="edit-booking.php?id=<?php echo $result->id;?>" name="edit" id="edit" class="edit">Chỉnh sửa</a>/ 
@@ -236,8 +249,7 @@ foreach($results as $result)
 			e.preventDefault();
 			var b_id=$(this).attr('id');
 
-			// console.log(b_id);
-			// alert('hi')
+
 			$.ajax({
 				type:"POST",
 				url:"view-booking.php",
@@ -246,7 +258,7 @@ foreach($results as $result)
 					'booking_id': b_id,
 				},
 				success: function(response){
-					console.log(response);
+					// console.log(response);
 					$('.booking_viewing').html(response);
 					$('#viewbookingmodal').modal('show');
 				}
@@ -257,7 +269,7 @@ foreach($results as $result)
 </script>
 	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap-select.min.js"></script>
+	<!-- <script src="js/bootstrap-select.min.js"></script> -->
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.dataTables.js"></script>
 	<script src="js/dataTables.bootstrap.min.js"></script>
@@ -265,6 +277,7 @@ foreach($results as $result)
 	<script src="js/fileinput.js"></script>
 	<script src="js/chartData.js"></script>
 	<script src="js/main.js"></script>
+
 </body>
 </html>
 <?php } ?>

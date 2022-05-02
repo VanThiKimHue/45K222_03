@@ -25,11 +25,11 @@ $msg=" Đăng bản quản lý sửa chữa thành công";
 
 
 }
-if(isset($_POST['back']))
-{
-	header("Location: manage-repair.php");
-exit;
-}
+// if(isset($_POST['back']))
+// {
+// 	header("Location: manage-repair.php");
+// exit;
+// }
 ?>
 
 <!doctype html>
@@ -42,8 +42,8 @@ exit;
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Create Brand</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -112,7 +112,7 @@ top:7px;
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Thêm Mới Thông Tin Sửa Chữa</h2>
+						<h2 class="page-title">Chỉnh Sửa Thông Tin Sửa Chữa</h2>
 
 						<div class="row">
 							<div class="col-md-12">
@@ -175,11 +175,10 @@ top:7px;
 
 
 
-
 											<div class="form-group" >
 												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
 													
-													<button class="btn btn-default" type="back" name="back" style="font-size:medium">Quay lại</button>
+													<button class="btn btn-default" type="reset" style="font-size:medium">Hủy</button>
 													<button class="btn btn-primary" name="submit" type="submit" id="submit"style="font-size: medium;">Thêm mới</button>
 												</div>
 											</div>
@@ -191,6 +190,10 @@ top:7px;
 							</div>
 
 						</div>
+
+						<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
+													<a href="manage-repair.php" class="btn btn-default" name="back" type="button" id="back"style="font-size: medium; background-color: grey;">Quay lại</a>
+												</div>
 
 
 					</div>

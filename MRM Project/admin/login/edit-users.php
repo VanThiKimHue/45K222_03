@@ -45,7 +45,13 @@ $msg=" Cập nhật thông tin thành công";
 
 
 }
+if(isset($_POST['back']))
+{
+	header("Location: reg-users.php");
+exit;
+}
 	?>
+
 
 <!-- Hiển thị giao diện cập nhật thông tin khách hàng -->
 <!doctype html>
@@ -58,8 +64,8 @@ $msg=" Cập nhật thông tin thành công";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Chỉnh Sửa Thông Tin Khách Hàng</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -125,7 +131,7 @@ $query= $dbh -> prepare($ret);
 $query->bindParam(':id',$id, PDO::PARAM_STR);
 $query-> execute();
 $results = $query -> fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
+// $cnt=1;
 if($query -> rowCount() > 0)
 {
 foreach($results as $result)
@@ -218,8 +224,8 @@ error:function (){}
 
 
 											<div class="form-group" >
-												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;"">
-													<button class="btn btn-default" type="reset" style="font-size:medium">Hủy</button>
+												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
+													<button class="btn btn-default" type="back" name="back" id="back" style="font-size:medium">Quay lại</button>
 													<button class="btn btn-primary" name="submit" type="submit" id="submit"style="font-size: medium;">Cập nhật</button>
 												</div>
 											</div>
@@ -239,7 +245,13 @@ error:function (){}
 			</div>
 		</div>
 	</div>
-
+<?php
+if(isset($_POST['back']))
+{
+	header("Location: reg-users.php");
+exit;
+}
+?> 
 	<!-- Loading Scripts -->
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap-select.min.js"></script>

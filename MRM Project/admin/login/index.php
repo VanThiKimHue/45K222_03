@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('includes/config.php');
+// Đăng nhập vào hệ thống
 if(isset($_POST['login']))
 {
 $email=$_POST['username'];
@@ -14,16 +15,17 @@ $results=$query->fetchAll(PDO::FETCH_OBJ);
 if($query->rowCount() > 0)
 {
 $_SESSION['alogin']=$_POST['username'];
-echo "<script type='text/javascript'> document.location = 'change-password.php'; </script>";
+echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
 } else{
 
-  echo "<script>alert('Invalid Details');</script>";
+  echo "<script>alert('Sai mật khẩu hoặc tài khoản');</script>";
 
 }
 
 }
 
 ?>
+<!--Hiển thị giao diện trang chính -->
 <!doctype html>
 <html lang="en" class="no-js">
 
@@ -33,8 +35,8 @@ echo "<script type='text/javascript'> document.location = 'change-password.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-
-	<title>Motorbike Rental Management | Đăng nhập hệ thống</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin Login</title>
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/dataTables.bootstrap.min.css">
@@ -52,16 +54,16 @@ echo "<script type='text/javascript'> document.location = 'change-password.php';
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
-						<h1 class="text-center text-bold text-light mt-4x">Đăng nhập tài khoản</h1>
+						<h1 class="text-center text-bold text-light mt-4x">Đăng nhập tài khoản Admin</h1>
 						<div class="well row pt-2x pb-3x bk-light">
 							<div class="col-md-8 col-md-offset-2">
 								<form method="post">
 
 									<label for="" class="text-uppercase text-sm">Tài Khoản </label>
-									<input type="text" placeholder="Username" name="username" class="form-control mb">
+									<input type="text" placeholder="Tên đăng nhập" name="username" class="form-control mb">
 
 									<label for="" class="text-uppercase text-sm">Mật Khẩu</label>
-									<input type="password" placeholder="Password" name="password" class="form-control mb">
+									<input type="password" placeholder="Mật khẩu" name="password" class="form-control mb">
 
 
 
@@ -90,4 +92,3 @@ echo "<script type='text/javascript'> document.location = 'change-password.php';
 </body>
 
 </html>
-

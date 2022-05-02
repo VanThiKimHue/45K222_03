@@ -49,8 +49,8 @@ exit;
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Create Brand</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -68,9 +68,14 @@ exit;
 	<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css">
 	<!-- Admin Stye -->
 	<link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
   <style>
 		.errorWrap {
     padding: 10px;
@@ -87,6 +92,17 @@ exit;
     border-left: 4px solid #5cb85c;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.chosen-container {
+font-size:18px;
+}
+
+.chosen-container-single .chosen-single {
+    height: 40px;
+    padding: 7px 0 0 8px;
+}
+.chosen-container-single .chosen-single div{
+top:7px;
 }
 		</style>
 
@@ -117,8 +133,8 @@ exit;
 <form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" onSubmit="return valid();">
 <div class="form-group">
  <label class="col-sm-2 control-label">Tên Xe<span style="color:red">*</span></label>
- <div class="col-sm-3">
-  	<select class="selectpicker" name="tenxe" required>
+ <div class="col-sm-2">
+  	<select class="form-control" name="tenxe" id="tenxe" required>
 	<option value=""> Lựa chọn </option>
 	<?php 
 	$ret="select id,TenXe from thongtinxe";
@@ -140,13 +156,13 @@ exit;
 
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày mua<span style="color:red">*</span></label>
- <div class="col-sm-3">
- <input  class="fromdate" name="ngaymua"  value="" required>
+ <div class="col-sm-2">
+ <input  class="fromdate form-control" name="ngaymua"  value="" required>
 </div>
 
  <label class="col-sm-2 control-label">Ngày hết hạn<span style="color:red">*</span></label>
- <div class="col-sm-3">
- <input  class="todate" name="ngayhet" value="" required>
+ <div class="col-sm-2">
+ <input  class="todate form-control" name="ngayhet" value="" required>
 </div>
 </div>
 <script type="text/javascript">
@@ -225,6 +241,9 @@ $('.todate').datepicker({
 	<script src="js/main.js"></script>
 	<script src="js/jautocalc.js"></script>
 	<script src="js/script.js"></script>
+	<script>
+		$("#tenxe").chosen();
+    </script>
 </body>
 
 </html>

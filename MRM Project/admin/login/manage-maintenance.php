@@ -31,8 +31,8 @@ $msg=" 	Dữ liệu xe đã được xóa";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management |Admin Manage Vehicles   </title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -100,6 +100,7 @@ $msg=" 	Dữ liệu xe đã được xóa";
 											<th>Ngày thay nhớt</th>
 											<th>Ngày bảo dưỡng gần nhất</th>
 											<th>Ngày bảo dưỡng kế tiếp</th>
+											<th>Cảnh báo</th>
                                             <th>Chỉnh Sửa</th>
 											<!-- <th>Loại Xe</th>
 											<th>Năm Sản Xuất</th>
@@ -115,6 +116,7 @@ $msg=" 	Dữ liệu xe đã được xóa";
 											<th>Ngày thay nhớt</th>
 											<th>Ngày bảo dưỡng gần nhất</th>
 											<th>Ngày bảo dưỡng kế tiếp</th>
+											<th>Cảnh báo</th>
                                             <th>Chỉnh Sửa</th>
 											<!-- <th>Loại Xe</th>
 											<th>Năm Sản Xuất</th>
@@ -131,10 +133,13 @@ $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
+$date = date('Y-m-d');
+$newdate = strtotime ( '+0 day' , strtotime ( $date ) ) ;
+$oneday= 24*60*60;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{				?>
+{	$d=strtotime($result->NgayBDTT)			?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->TenXe);?></td>
@@ -143,6 +148,17 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->NgayThayDau);?></td>
 											<td><?php echo htmlentities($result->NgayBDGN);?></td>
 											<td><?php echo htmlentities($result->NgayBDTT);?></td>
+											<td>
+												<?php if(($d-$newdate)==0 ):?>
+												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đến hạn bảo dưỡng</span>
+												<?php elseif(($d-$newdate)==86400):?>
+												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Sắp đến ngày bảo dưỡng</span>
+												<?php elseif(($d-$newdate)<0):?>
+												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đã quá hạn bảo dưỡng</span>
+												<?php elseif(($d-$newdate-$oneday)>86400):?>
+												<span ></span> 
+												<?php endif; ?>
+											</td>
 		<td><a href="edit-maintenance.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-maintenance.php?del=<?php echo $result->id;?>" onclick="return confirm('Bạn có muốn xóa hồ sơ xe');"><i class="fa fa-close"></i></a></td>
 										</tr>

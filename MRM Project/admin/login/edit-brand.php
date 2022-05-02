@@ -22,6 +22,11 @@ $lastInsertId = $dbh->lastInsertId();
 $msg=" Cập nhật hãng xe thành công";
 
 }
+if(isset($_POST['back']))
+{
+	header("Location: manage-brands.php");
+exit;
+}
 ?>
 
 <!doctype html>
@@ -34,8 +39,8 @@ $msg=" Cập nhật hãng xe thành công";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Create Brand</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -123,10 +128,10 @@ foreach($results as $result)
 										<?php }} ?>
 
 
-											<div class="form-group">
-												<div class="col-sm-8 col-sm-offset-4">
-
-													<button class="btn btn-primary" name="submit" type="submit">Cập nhật</button>
+											<div class="form-group" >
+												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
+													<button class="btn btn-default" type="back" name="back" style="font-size:medium">Hủy</button>
+													<button class="btn btn-primary" name="submit" type="submit" id="submit"style="font-size: medium;">Cập nhật</button>
 												</div>
 											</div>
 

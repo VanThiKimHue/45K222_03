@@ -17,9 +17,10 @@ $songaythue=$_POST['songaythue'];
 $giatrihopdong=$_POST['giatrihopdong']; 
 $datcoc=$_POST['datcoc'];
 $conlai=$_POST['conlai'];
+$phikhac=$_POST['phikhac'];
 $ghichu=$_POST['ghichu'];
 $id=intval($_GET['id']);
-$sql="update  dathang set idkhachhang=:khachhang,idxe=:xethue,NgayThue=:ngaythue,NgayTra=:ngaytra,SoNgayThue=:songaythue,GiaTriHopDong=:giatrihopdong,DatTruoc=:datcoc,ConLai=:conlai,GhiChu=:ghichu where id=:id";
+$sql="update  dathang set idkhachhang=:khachhang,idxe=:xethue,NgayThue=:ngaythue,NgayTra=:ngaytra,SoNgayThue=:songaythue,GiaTriHopDong=:giatrihopdong,DatTruoc=:datcoc,ConLai=:conlai,PhiKhac=:phikhac,GhiChu=:ghichu where id=:id";
 $query = $dbh->prepare($sql);
 $query->bindParam(':khachhang',$khachhang,PDO::PARAM_STR);
 $query->bindParam(':xethue',$xethue,PDO::PARAM_STR);
@@ -29,14 +30,11 @@ $query->bindParam(':songaythue',$songaythue,PDO::PARAM_STR);
 $query->bindParam(':giatrihopdong',$giatrihopdong,PDO::PARAM_STR);
 $query->bindParam(':datcoc',$datcoc,PDO::PARAM_STR);
 $query->bindParam(':conlai',$conlai,PDO::PARAM_STR);
+$query->bindParam(':phikhac',$phikhac,PDO::PARAM_STR);
 $query->bindParam(':ghichu',$ghichu,PDO::PARAM_STR);
 $query->bindParam(':id',$id,PDO::PARAM_STR);
 $query->execute();
-// $ret1="SELECT TinhTrang from thongtinxe where id=:xethue";
-// $query = $dbh->prepare($ret1);
-// $query->execute();
-// $results=$query->fetchAll(PDO::FETCH_OBJ);
-// if($results->TinhTrang==0)
+
 $msg="Cập nhật thông tin xe thành công";
 }
 
@@ -57,8 +55,8 @@ exit;
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Chỉnh Sửa Đơn Thuê Xe</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -268,11 +266,11 @@ function calculate() {
 <div class="form-group">
 <label class="col-sm-2 control-label">Giá thuê(VND/ngày)<span style="color:red">*</span></label>
 <div class="col-sm-3">
-<input type="text" name="giathue" class="form-control" value="<?php echo htmlentities(($result->GiaTriHopDong)/($result->SoNgayThue));?>" required readonly>
+<input type="text" name="giathue" class="form-control" value="<?php echo htmlentities((($result->GiaTriHopDong)-($result->PhiKhac))/($result->SoNgayThue));?>" required readonly>
 </div>
  <label class="col-sm-2 control-label">Giá trị hợp đồng(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input type="text" name="giatrihopdong" class="form-control"  jAutoCalc="{songaythue}*{giathue}" required readonly>
+  <input type="text" name="giatrihopdong" class="form-control"  jAutoCalc="{songaythue}*{giathue}+{phikhac}" required readonly>
  </div>
 </div>
 
@@ -284,6 +282,13 @@ function calculate() {
   <label class="col-sm-2 control-label">Còn lại(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
   <input type="text" name="conlai" class="form-control"  jAutoCalc="{giatrihopdong} - {datcoc}" required readonly>
+ </div>
+</div>
+
+<div class="form-group">
+ <label class="col-sm-2 control-label">Chi phí khác</label>
+ <div class="col-sm-3">
+  <input type="text" name="phikhac" class="form-control"  value="<?php echo htmlentities($result->PhiKhac);?>">
  </div>
 </div>
 

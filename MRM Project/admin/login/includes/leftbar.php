@@ -2,7 +2,7 @@
 			<ul class="ts-sidebar-menu">
 			
 				<li class="ts-label">DANH MỤC QUẢN LÝ</li>
-				<!-- <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li> -->
+				<li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Bảng quản lý</a></li>
 			
 <li><a href="#"><i class="fa fa-motorcycle"></i> Hãng xe</a>
 <ul>
@@ -29,18 +29,18 @@
 			    	<li><a href="manage-bookings.php">Danh sách</a></li>
 			     </ul>
 			    </li>
-				<li><a href="#"><i class="fa fa-files-o"></i> Quản lý bảo dưỡng, bảo hiểm</a>
+				<li><a href="#"><i class="fa fa-files-o"></i> Quản lý bảo dưỡng, bảo hiểm, sửa chữa</a>
 			     <ul>
 			     	<li><a href="manage-maintenance.php">Quản lý bảo dưỡng</a></li>
 			    	<li><a href="manage-insurance.php">Quản lý bảo hiểm</a></li>
-					<li><a href="manage-repair.php">Quản lý sữa chữa</a></li>
+					<li><a href="manage-repair.php">Quản lý sửa chữa</a></li>
 			     </ul>
 			    </li>
 				<li><a href="#"><i class="fa fa-files-o"></i>Báo cáo</a>
 				<ul>
 				<li><a href="report-sales.php">Báo cáo doanh thu</a></li>
 				<li><a href="report-expenses.php">Báo cáo chi phí bảo hiểm</a></li>
-				<li><a href="report-repair.php">Báo cáo chi phí sữa chữa</a></li>
+				<li><a href="report-repair.php">Báo cáo chi phí sửa chữa</a></li>
 			    </ul>
 			    </li>
 

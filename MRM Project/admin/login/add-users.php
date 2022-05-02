@@ -54,8 +54,8 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Thêm Khách Hàng</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -166,7 +166,7 @@ error:function (){}
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày sinh<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input type="date" class="form-control" name="bdate" value="<?php echo date("Y-m-d")?>" required>
+ <input type="date" class="form-control" name="bdate"  required>
 </div>
 </div>
 

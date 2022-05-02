@@ -1,9 +1,14 @@
 <?php
+// HTTP
+define('HTTP_SERVER', 'http://chothuexemaydt.site/');
+// HTTPS
+define('HTTPS_SERVER', 'https://chothuexemaydt.site/');
+
 // DB credentials.
 define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
-define('DB_NAME','test');
+define('DB_USER','nhchoepq_root');
+define('DB_PASS','chothuexemaydt');
+define('DB_NAME','nhchoepq_bikerental');
 // Establish database connection.
 try
 {

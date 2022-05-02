@@ -50,8 +50,8 @@ exit;
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Create Brand</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -72,6 +72,11 @@ exit;
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
   <style>
 		.errorWrap {
     padding: 10px;
@@ -88,6 +93,17 @@ exit;
     border-left: 4px solid #5cb85c;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.chosen-container {
+font-size:18px;
+}
+
+.chosen-container-single .chosen-single {
+    height: 40px;
+    padding: 7px 0 0 8px;
+}
+.chosen-container-single .chosen-single div{
+top:7px;
 }
 		</style>
 
@@ -133,11 +149,10 @@ foreach($results as $result)
 <div class="form-group">
  <label class="col-sm-2 control-label">Tên Xe<span style="color:red">*</span></label>
  <div class="col-sm-2">
-  	<select class="selectpicker" name="tenxe"  required>
+  	<select class="form-control" name="tenxe" id="tenxe" required>
 	  <option value="<?php echo htmlentities($result->cid);?>"><?php echo htmlentities($vname=$result->TenXe); ?> </option>
-		<?php $ret="select id,TenXe from thongtinxe";
+		<!-- <?php $ret="select id,TenXe from thongtinxe";
 		$query= $dbh -> prepare($ret);
-		//$query->bindParam(':id',$id, PDO::PARAM_STR);
 		$query-> execute();
 		$resultss = $query -> fetchAll(PDO::FETCH_OBJ);
 		if($query -> rowCount() > 0)
@@ -150,7 +165,7 @@ foreach($results as $result)
 		} else{
 		?>
 		<option value="<?php echo htmlentities($results->id);?>"><?php echo htmlentities($results->TenXe); ?></option>
-	<?php }}} ?>
+	<?php }}} ?> -->
 
     </select>
  </div>
@@ -173,7 +188,7 @@ foreach($results as $result)
 <div class="form-group">
 <label class="col-sm-2 control-label">Ngày thay nhớt<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="date"  name="ngaythaynhot" value="<?php echo htmlentities($result->NgayThayDau);?>" required>
+<input class="today form-control"  name="ngaythaynhot" value="<?php echo htmlentities($result->NgayThayDau);?>" required>
 </div>
 </div>
 </div>
@@ -181,33 +196,40 @@ foreach($results as $result)
 <div class="form-group">
 <label class="col-sm-2 control-label">Ngày bảo dưỡng gần nhất<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="fromdate"  name="ngaybaoduong" value="<?php echo htmlentities($result->NgayBDGN);?>" required>
+<input class="day form-control"  name="ngaybaoduong" value="<?php echo htmlentities($result->NgayBDGN);?>" required>
 </div>
 
 <div class="form-group">
 <label class="col-sm-2 control-label">Ngày bảo dưỡng kế tiếp<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="todate" name="ngaybaoduongtt" value="<?php echo htmlentities($result->NgayBDTT);?>"  readonly required>
+<input class="ngaytt form-control" name="ngaybaoduongtt" value="<?php echo htmlentities($result->NgayBDTT);?>"  readonly required>
 </div>
 </div>
 
 </div>
 <script type="text/javascript">
-$('.fromdate').datepicker({
+$('.day').datepicker({
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true,
 });
-$('.todate').datepicker({
+$('.today').datepicker({
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true,
 });
-$('.date').datepicker({
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear: true,
+$('.day').datepicker().bind("change", function () {
+
+    calculate();
 });
+function calculate() {
+    var d1 = $('.day').datepicker('getDate','getMonth','getFullYear');
+    var d2= new Date();
+	d2.setFullYear(d1.getFullYear());
+	d2.setMonth(d1.getMonth() + 3);
+	d2.setDate(d1.getDate());
+    $('.ngaytt').val(d2.toISOString().split('T')[0]);
+  }
 </script>
 <br>
 <br>
@@ -258,7 +280,9 @@ $('.date').datepicker({
 	<script src="js/main.js"></script>
 	<script src="js/jautocalc.js"></script>
 	<script src="js/script.js"></script>
-
+	<script>
+		$("#tenxe").chosen();
+    </script>
 </body>
 
 </html>

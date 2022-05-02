@@ -16,22 +16,16 @@ $motaxe=$_POST['motaxe'];
 $giathue=$_POST['giathue'];
 $namsx=$_POST['namsx'];
 $type=$_POST['type'];
-$vimage1=$_FILES["img1"]["name"];
-$vimage2=$_FILES["img2"]["name"];
-$vimage3=$_FILES["img3"]["name"];
-$vimage4=$_FILES["img4"]["name"];
-$vimage5=$_FILES["img5"]["name"];
-$type=$_POST['type'];
-
-
-$sql="INSERT INTO thongtinxe(TenXe,HangXe,MoTaXe,GiaThueTheoNgay,NamSanXuat,Type) 
-VALUES(:tenxe,:hangxe,:motaxe,:giathue,:namsx,:type)";
+$namdk=$_POST['namdk'];
+$sql="INSERT INTO thongtinxe(TenXe,HangXe,MoTaXe,GiaThueTheoNgay,NamSanXuat,NamDK,Type) 
+VALUES(:tenxe,:hangxe,:motaxe,:giathue,:namsx,:namdk,:type)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':tenxe',$tenxe,PDO::PARAM_STR);
 $query->bindParam(':hangxe',$hangxe,PDO::PARAM_STR);
 $query->bindParam(':motaxe',$motaxe,PDO::PARAM_STR);
 $query->bindParam(':giathue',$giathue,PDO::PARAM_STR);
 $query->bindParam(':namsx',$namsx,PDO::PARAM_STR);
+$query->bindParam(':namdk',$namdk,PDO::PARAM_STR);
 $query->bindParam(':type',$type,PDO::PARAM_STR);
 $query->execute();
 $lastInsertId = $dbh->lastInsertId();
@@ -58,8 +52,8 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management | Admin Thêm Phương Tiện</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin</title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -79,7 +73,7 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -140,7 +134,7 @@ top:7px;
 <form method="post" class="form-horizontal" enctype="multipart/form-data">
 <div class="form-group">
 <label class="col-sm-2 control-label">Biển số xe<span style="color:red">*</span></label>
-<div class="col-sm-4">
+<div class="col-sm-2">
 <input type="text" name="tenxe" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Hãng xe<span style="color:red">*</span></label>
@@ -165,15 +159,15 @@ top:7px;
 
 <div class="hr-dashed"></div>
 <div class="form-group">
-<label class="col-sm-2 control-label">Thông số xe<span style="color:red">*</span></label>
-<div class="col-sm-10">
+<label class="col-sm-2 control-label">Màu xe<span style="color:red">*</span></label>
+<div class="col-sm-2">
 <textarea class="form-control" name="motaxe" rows="3" required></textarea>
 </div>
 </div>
 
 <div class="form-group">
 <label class="col-sm-2 control-label">Giá theo ngày(VND)<span style="color:red">*</span></label>
-<div class="col-sm-4">
+<div class="col-sm-2">
 <input type="text" name="giathue" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Loại xe<span style="color:red">*</span></label>
@@ -191,43 +185,16 @@ top:7px;
 
 <div class="form-group">
 <label class="col-sm-2 control-label">Năm sản xuất<span style="color:red">*</span></label>
-<div class="col-sm-4">
+<div class="col-sm-2">
 <input type="text" name="namsx" class="form-control" required>
 </div>
-</div>
-
-<div class="hr-dashed"></div>
-
-
-<!-- <div class="form-group">
-<div class="col-sm-12">
-<h4><b>Thêm hình ảnh</b></h4>
+<label class="col-sm-2 control-label">Năm đăng ký lần đầu<span style="color:red">*</span></label>
+<div class="col-sm-2">
+<input type="text" name="namdk" class="form-control" required>
 </div>
 </div>
 
 
-<div class="form-group">
-<div class="col-sm-4">
-Hình ảnh 1 <span style="color:red">*</span><input type="file" name="img1" required>
-</div>
-<div class="col-sm-4">
-Hình ảnh 2<input type="file" name="img2" >
-</div>
-<div class="col-sm-4">
-Hình ảnh 3<input type="file" name="img3">
-</div>
-</div>
-
-
-<div class="form-group">
-<div class="col-sm-4">
-Hình ảnh 4<input type="file" name="img4">
-</div>
-<div class="col-sm-4">
-Hình ảnh 5<input type="file" name="img5">
-</div> -->
-
-</div>
 <div class="hr-dashed"></div>
 </div>
 </div>
@@ -265,7 +232,7 @@ Hình ảnh 5<input type="file" name="img5">
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<!-- <script src="js/bootstrap.min.js"></script> -->
 	<script src="js/jquery.dataTables.min.js"></script>
 	<script src="js/dataTables.bootstrap.min.js"></script>
 	<script src="js/Chart.min.js"></script>

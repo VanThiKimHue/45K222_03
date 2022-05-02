@@ -30,8 +30,8 @@ $msg=" 	Dữ liệu xe đã được xóa";
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="theme-color" content="#3e454c">
-
-	<title>Motorbike Rental Management |Admin Manage Vehicles   </title>
+	<link rel="shortcut icon" type="image/jpg" href="img/Snapseed.jpg"/>
+	<title>Motorbike Rental Management | Admin   </title>
 
 	<!-- Font awesome -->
 	<link rel="stylesheet" href="css/font-awesome.min.css">
@@ -98,6 +98,7 @@ $msg=" 	Dữ liệu xe đã được xóa";
 											<th>Giá Theo Ngày(VND)</th>
 											<th>Loại Xe</th>
 											<th>Năm Sản Xuất</th>
+											<th>Năm Đăng Ký Lần Đầu</th>
 											<th>Chỉnh Sửa</th>
 										</tr>
 									</thead>
@@ -109,13 +110,16 @@ $msg=" 	Dữ liệu xe đã được xóa";
 											<th>Giá Theo Ngày(VND)</th>
 											<th>Loại Xe</th>
 											<th>Năm Sản Xuất</th>
+											<th>Năm Đăng Ký Lần Đầu</th>
 											<th>Chỉnh Sửa</th>
 										</tr>
 										</tr>
 									</tfoot>
 									<tbody>
 
-<?php $sql = "SELECT thongtinxe.TenXe,hangxe.TenHang,thongtinxe.GiaThueTheoNgay,thongtinxe.Type,thongtinxe.NamSanXuat,thongtinxe.id from thongtinxe join hangxe on hangxe.id=thongtinxe.HangXe";
+<?php $sql = "SELECT thongtinxe.TenXe,hangxe.TenHang,thongtinxe.GiaThueTheoNgay,thongtinxe.Type,thongtinxe.NamSanXuat,thongtinxe.NamDK,thongtinxe.id 
+from thongtinxe 
+join hangxe on hangxe.id=thongtinxe.HangXe";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -130,7 +134,8 @@ foreach($results as $result)
 											<td><?php echo htmlentities($result->TenHang);?></td>
 											<td><?php echo htmlentities($result->GiaThueTheoNgay);?></td>
 											<td><?php echo htmlentities($result->Type);?></td>
-												<td><?php echo htmlentities($result->NamSanXuat);?></td>
+											<td><?php echo htmlentities($result->NamSanXuat);?></td>
+											<td><?php echo htmlentities($result->NamDK);?></td>
 		<td><a href="edit-vehicle.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-vehicles.php?del=<?php echo $result->id;?>" onclick="return confirm('Bạn có muốn xóa hồ sơ xe');"><i class="fa fa-close"></i></a></td>
 										</tr>
