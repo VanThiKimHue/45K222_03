@@ -50,7 +50,9 @@ CREATE TABLE IF NOT EXISTS`thongtinxe` (
   `GiaThueTheoNgay` int(11) DEFAULT NULL,
   `NamSanXuat` int(6) DEFAULT NULL,
   `Type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `NamDK` int(6) DEFAULT NULL,
   `TinhTrang` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Free, 1 =Rented',
+  `TinhTrangBD` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Free, 1 =Checked',
   `RegDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -58,12 +60,12 @@ CREATE TABLE IF NOT EXISTS`thongtinxe` (
 -- nhập dữ liệu bảng `thongtinxe`
 --
 
-INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, `NamSanXuat`, `Type`, `TinhTrang`, `RegDate`, `UpdationDate`) VALUES
-(1, 'SS400', 1, 'test', 345345, 2016, 'Xe Số', 0, '2022-03-23 07:46:44', NULL),
-(2, '232132', 1, 'fsdaf', 110000, 2018, 'Xe Ga', 0, '2022-03-23 18:16:37', NULL),
-(3, '43ss1', 1, 'không', 100000, 2018, 'Xe Ga', 0, '2022-03-23 11:07:00', NULL),
-(4, '43C2-59434', 1, 'không có', 120000, 2018, 'Xe Côn', 0, '2022-03-23 11:17:58', NULL),
-(5, '43C2-59436', 1, 'không', 110000, 2018, 'Xe Số', 0, '2022-03-23 16:54:03', NULL);
+INSERT INTO `thongtinxe` (`id`, `TenXe`, `HangXe`, `MoTaXe`, `GiaThueTheoNgay`, `NamSanXuat`, `Type`, `NamDK`,`TinhTrang`, `TinhTrangBD`,`RegDate`, `UpdationDate`) VALUES
+(1, 'SS400', 1, 'test', 345345, 2016, 'Xe Số', '2013',0, 1,'2022-03-23 07:46:44', NULL),
+(2, '232132', 1, 'fsdaf', 110000, 2018, 'Xe Ga', '2013',0, 0,'2022-03-23 18:16:37', NULL),
+(3, '43ss1', 1, 'không', 100000, 2018, 'Xe Ga', '2013',0, 0,'2022-03-23 11:07:00', NULL),
+(4, '43C2-59434', 1, 'không có', 120000, 2018, 'Xe Côn', '2013',0, 0,'2022-03-23 11:17:58', NULL),
+(5, '43C2-59436', 1, 'không', 110000, 2018, 'Xe Số', '2013', 0, 0,'2022-03-23 16:54:03', NULL);
 
 -- tạo bảng khách hàng
  CREATE TABLE IF NOT EXISTS `khachhang` (
@@ -111,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `dathang` (
   `GiaTriHopDong` float NOT NULL DEFAULT 0,
   `DatTruoc` float NOT NULL DEFAULT 0,
   `ConLai` float NOT NULL DEFAULT 0,
+  `PhiKhac` float NOT NULL DEFAULT 0,
   `GhiChu` varchar(255) DEFAULT NULL,
   `TinhTrang` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Picked -up, 1 =Returned, 2=Cancelled',
   `NgayNhap` datetime NOT NULL DEFAULT current_timestamp(),
@@ -121,9 +124,9 @@ CREATE TABLE IF NOT EXISTS `dathang` (
 -- nhập thông tin vào bảng đặt hàng
 --
 
-INSERT INTO `dathang` (`id`, `idkhachhang`, `idxe`, `NgayThue`, `NgayTra`,`SoNgayThue`, `GiaTriHopDong`, `DatTruoc`, `ConLai`, `GhiChu`, `TinhTrang`, `NgayNhap`,`NgayCapNhat`) 
+INSERT INTO `dathang` (`id`, `idkhachhang`, `idxe`, `NgayThue`, `NgayTra`,`SoNgayThue`, `GiaTriHopDong`, `DatTruoc`, `ConLai`, `PhiKhac`,`GhiChu`, `TinhTrang`, `NgayNhap`,`NgayCapNhat`) 
 VALUES
-(1, 1, 2, '2022-04-1', '2022-04-5', 5,550000, 100000, 450000, 'Nón bảo hiểm', 0,'2022-04-1 06:59:27',null);
+(1, 1, 2, '2022-04-1', '2022-04-5', 5,550000, 100000, 450000, 100000,'Nón bảo hiểm', 0,'2022-04-1 06:59:27',null);
 
 -- Tạo bảng bảo dưỡng
 
