@@ -88,7 +88,7 @@ $msg=" Xóa hãng xe thành công";
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Danh sách hãng</div>
+							<div class="panel-heading" style="font-size:15px;">Danh sách hãng</div>
 							<div class="panel-body">
 							<?php if($error){?><div class="errorWrap"><strong>LỖI</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>THÀNH CÔNG</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
@@ -137,7 +137,9 @@ foreach($results as $result)
 
 									</tbody>
 								</table>
-
+								<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
+													<a href="create-brand.php" class="btn btn-primary" name="submit" type="button" id="submit"style="font-size: medium;">Thêm mới</a>
+												</div>
 
 
 							</div>

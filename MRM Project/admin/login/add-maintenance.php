@@ -140,11 +140,11 @@ top:7px;
 
 									<div class="panel-body">
 
-<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" onSubmit="return valid();">
+<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" id="form1" onSubmit="return valid();">
 <div class="form-group">
  <label class="col-sm-2 control-label">Tên Xe<span style="color:red">*</span></label>
  <div class="col-sm-2">
-  	<select class="form-control" name="tenxe" id="tenxe"required>
+  	<select class="form-control" name="tenxe" id="tenxe">
 	<option value=""> Lựa chọn </option>
 	<?php 
 	$ret="select id,TenXe from thongtinxe where TinhTrangBD=0";
@@ -165,7 +165,7 @@ top:7px;
  <div class="form-group">
  <label class="col-sm-2 control-label">Số ODO(Km)<span style="color:red">*</span></label>
  <div class="col-sm-2">
-	<input class="form-control" name="odo" required>
+	<input class="form-control" type="number" name="odo" required>
     
  </div>
 </div>
@@ -268,7 +268,17 @@ function calculate() {
 			</div>
 		</div>
 	</div>
-
+	<script>
+$(document).ready(function() {
+$("#form1").submit(function (e) {
+if ($("#tenxe").val() == "" ) {
+$("#tenxe").css('box-shadow', '0px 0px 7px red');
+alert('Vui lòng chọn xe.');
+e.preventDefault(); 
+} 
+});
+});
+</script>
 	<!-- Loading Scripts -->
 	<!-- <script src="js/bootstrap-select.min.js"></script> -->
 	<!-- <script src="js/bootstrap.min.js"></script> -->

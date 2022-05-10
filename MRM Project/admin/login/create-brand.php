@@ -94,7 +94,7 @@ $error=" Đã xảy ra lỗi. Vui lòng thử lại";
 						<div class="row">
 							<div class="col-md-10">
 								<div class="panel panel-default">
-									<div class="panel-heading"></div>
+									
 									<div class="panel-body">
 										<form method="post" name="chngpwd" class="form-horizontal" onSubmit="return valid();">
 
@@ -104,9 +104,28 @@ $error=" Đã xảy ra lỗi. Vui lòng thử lại";
 											<div class="form-group">
 												<label class="col-sm-4 control-label">Tên Hãng</label>
 												<div class="col-sm-8">
-													<input type="text" class="form-control" name="brand" id="brand" required>
+													<input type="text" class="form-control" name="brand" id="brand" onchange="checkAvailability()" required>
+													<span id="brand-availability-status" style="font-size:12px;"></span>
+<script>
+function checkAvailability() {
+
+$("#loaderIcon").show();
+jQuery.ajax({
+url: "check_availability.php",
+data:'brand='+$("#brand").val(),
+type: "POST",
+success:function(data){
+
+$("#brand-availability-status").html(data);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
+}
+</script>
 												</div>
 											</div>
+
 											<div class="hr-dashed"></div>
 
 
@@ -115,7 +134,7 @@ $error=" Đã xảy ra lỗi. Vui lòng thử lại";
 											<div class="form-group">
 												<div class="col-sm-8 col-sm-offset-4">
 
-													<button class="btn btn-primary" name="submit" type="submit">Tạo mới</button>
+													<button class="btn btn-primary" name="submit" type="submit" id="submit" >Tạo mới</button>
 												</div>
 											</div>
 

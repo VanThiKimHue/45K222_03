@@ -176,12 +176,12 @@ error:function (){}
 <div class="form-group">
  <label class="col-sm-2 control-label">CCCD<span style="color:red">*</span></label>
  <div class="col-sm-3">
-	<input type="text" name="cccd" class="form-control" value="<?php echo htmlentities($result->CCCD);?>" required>
+	<input type="number" name="cccd" class="form-control" value="<?php echo htmlentities($result->CCCD);?>" required>
  </div>
 <div class="form-group">
  <label class="col-sm-2 control-label">Số điện thoại<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input type="text" name="sdt" class="form-control" value="<?php echo htmlentities($result->SoDienThoai);?>" required>
+  <input type="number" name="sdt" class="form-control" value="<?php echo htmlentities($result->SoDienThoai);?>" required>
  </div>
 </div>
 </div>
@@ -189,7 +189,7 @@ error:function (){}
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày sinh<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input type="date" class="form-control" name="bdate" value="<?php echo htmlentities($result->NgaySinh);?>" required>
+ <input type="date" class="form-control" name="bdate" max="<?php echo htmlentities(date('Y-m-d'))?>"  value="<?php echo htmlentities($result->NgaySinh);?>" required>
 </div>
 </div>
 

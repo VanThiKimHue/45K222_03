@@ -126,20 +126,36 @@ top:7px;
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel panel-default">
-									<div class="panel-heading">Thông Tin Cơ bản</div>
+									<div class="panel-heading" style="font-size:15px;">Thông Tin Cơ bản</div>
 <?php if($error){?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
 									<div class="panel-body">
-<form method="post" class="form-horizontal" enctype="multipart/form-data">
+<form method="post" class="form-horizontal" enctype="multipart/form-data" name="form1" id="form1">
 <div class="form-group">
 <label class="col-sm-2 control-label">Biển số xe<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="tenxe" class="form-control" required>
+<input type="text" name="tenxe" class="form-control" id="tenxe" onBlur="checkAvailability()" required>
+<span id="bike-availability-status" style="font-size:12px;"></span>
+<script>
+function checkAvailability() {
+$("#loaderIcon").show();
+jQuery.ajax({
+url: "check_availability.php",
+data:'tenxe='+$("#tenxe").val(),
+type: "POST",
+success:function(data){
+$("#bike-availability-status").html(data);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
+}
+</script>
 </div>
 <label class="col-sm-2 control-label">Hãng xe<span style="color:red">*</span></label>
 <div class="col-sm-2">
-	<select  class="form-control" name="hangxe"  id="hangxe" value="" required>
+	<select  class="form-control" name="hangxe"  id="hangxe" value="" >
             <option value=""> Lựa chọn </option>
             <?php 
             $ret="select id,TenHang from hangxe";
@@ -168,7 +184,7 @@ top:7px;
 <div class="form-group">
 <label class="col-sm-2 control-label">Giá theo ngày(VND)<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="giathue" class="form-control" required>
+<input type="number" name="giathue" class="form-control" required>
 </div>
 <label class="col-sm-2 control-label">Loại xe<span style="color:red">*</span></label>
 <div class="col-sm-2">
@@ -186,11 +202,11 @@ top:7px;
 <div class="form-group">
 <label class="col-sm-2 control-label">Năm sản xuất<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="namsx" class="form-control" required>
+<input type="number" name="namsx" class="form-control" max="<?php echo htmlentities(date('Y'))?>" required>
 </div>
 <label class="col-sm-2 control-label">Năm đăng ký lần đầu<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="namdk" class="form-control" required>
+<input type="number" name="namdk" class="form-control" max="<?php echo htmlentities(date('Y'))?>" required>
 </div>
 </div>
 
@@ -208,11 +224,12 @@ top:7px;
 											<div class="form-group" >
 												<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;"">
 													<button class="btn btn-default" type="reset" style="font-size:medium">Hủy</button>
-													<button class="btn btn-primary" name="submit" type="submit" style="font-size: medium;">Thêm phương tiện</button>
+													<button class="btn btn-primary" id="submit" name="submit" type="submit" style="font-size: medium;">Thêm phương tiện</button>
 												</div>
 											</div>
 
 										</form>
+
 									</div>
 								</div>
 							</div>
@@ -228,7 +245,17 @@ top:7px;
 			</div>
 		</div>
 	</div>
-
+	<script>
+$(document).ready(function() {
+$("#form1").submit(function (e) {
+if ($("#hangxe").val() == "" ) {
+$("#hangxe").css('box-shadow', '0px 0px 7px red');
+alert('Vui lòng chọn hãng xe.');
+e.preventDefault(); 
+} 
+});
+});
+</script>
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>

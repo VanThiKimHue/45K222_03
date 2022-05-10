@@ -133,17 +133,17 @@ top:7px;
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel panel-default">
-									<div class="panel-heading">Thông Tin Cơ bản</div>
+									<div class="panel-heading" style="font-size:15px;">Thông Tin Cơ bản</div>
 <?php if($error){?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
 									<div class="panel-body">
 
-<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" onSubmit="return valid();">
+<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" id="form1" onSubmit="return valid();">
 <div class="form-group">
  <label class="col-sm-2 control-label">Khách hàng<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  	<select class="form-control" name="khachhang" id="khachhang" required readonly>
+  	<select class="form-control" name="khachhang" id="khachhang" >
 	<option value=""> Lựa chọn </option>
 	<?php 
 	$ret="select id,HoVaTen from khachhang";
@@ -164,7 +164,7 @@ top:7px;
  <div class="form-group">
  <label class="col-sm-2 control-label">Xe Thuê<span style="color:red">*</span></label>
  <div class="col-sm-3">
-	<select class="form-control" name="xethue" id="xethue" required>
+	<select class="form-control" name="xethue" id="xethue" onchange="validateSelectBox(this)" >
 	<option value=""> Lựa chọn </option>
 	<?php 
 	$t="";
@@ -253,7 +253,7 @@ function calculate() {
 <div class="form-group">
 <label class="col-sm-2 control-label">Giá thuê(VND/ngày)<span style="color:red">*</span></label>
 <div class="col-sm-3">
-<input type="text" name="giathue" class="form-control" value="" required >
+<input type="text" name="giathue" id="giathue" class="form-control" value="" required >
 </div>
  <label class="col-sm-2 control-label">Giá trị hợp đồng(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
@@ -264,7 +264,7 @@ function calculate() {
 <div class="form-group">
  <label class="col-sm-2 control-label">Đặt cọc(VND)</label>
  <div class="col-sm-3">
-  <input type="text" name="datcoc" class="form-control" value="">
+  <input type="number" name="datcoc" class="form-control" value="">
  </div>
   <label class="col-sm-2 control-label">Còn lại(VND)<span style="color:red">*</span></label>
  <div class="col-sm-3">
@@ -274,7 +274,7 @@ function calculate() {
 <div class="form-group">
  <label class="col-sm-2 control-label">Chi phí khác</label>
  <div class="col-sm-3">
-  <input type="text" name="phikhac" class="form-control">
+  <input type="number" name="phikhac" class="form-control">
  </div>
 </div>
 <div class="hr-dashed"></div>
@@ -315,7 +315,42 @@ function calculate() {
 			</div>
 		</div>
 	</div>
-
+<script language="javascript">
+function validateSelectBox(obj) {
+	var options = obj.children;
+	var html = '';
+	for (var i = 0; i < options.length; i++){
+                    if (options[i].selected){
+                        html = options[i].value;
+                    }
+                }
+				var xethue=html;
+				$.ajax({
+				url: "check_availability.php",
+				data:{'xethue':xethue},
+				type: "POST",
+				dataType: 'html',
+				success:function(data){
+				$("#giathue").val(data);
+				},
+				error:function (){}
+				});
+            }
+$(document).ready(function() {
+$("#form1").submit(function (e) 
+{
+	if ($("#khachhang").val() == "" ) {
+	$("#khachhang").css('box-shadow', '0px 0px 7px red');
+	alert('Vui lòng chọn khách hàng.');
+	e.preventDefault(); 
+	} else if($("#xethue").val() == "" ) {
+	$("#xethue").css('box-shadow', '0px 0px 7px red');
+	alert('Vui lòng chọn xe cho thuê.');
+	e.preventDefault(); 
+	} 
+});
+});
+</script>
 
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->

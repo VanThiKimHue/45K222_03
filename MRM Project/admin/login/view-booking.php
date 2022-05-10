@@ -1,5 +1,5 @@
 <?php
-$conn=mysqli_connect("localhost","nhchoepq_root","chothuexemaydt","nhchoepq_bikerental");
+$conn=mysqli_connect("localhost","root","","test");
 mysqli_set_charset($conn,"utf8");
 if(isset($_POST['checking_view_btn']))
 {
@@ -30,9 +30,7 @@ if(mysqli_num_rows($query_run) > 0)
         echo $return='
 
         <div class="col-md-6">
-            <p><b>Tên khách hàng:</b> 
-            '.$row['HoVaTen'].'
-            </p>
+            <p><b>Tên khách hàng:</b> '.$row['HoVaTen'].'</p>
             <p><b>Email khách hàng:</b> '.$row['Email'].'</p>
             <p><b>CCCD:</b> '.$row['CCCD'].' </p>
             <p><b>Số điện thoại:</b> '.$row['SoDienThoai'].'</p>

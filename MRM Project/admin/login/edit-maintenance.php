@@ -173,7 +173,7 @@ foreach($results as $result)
  <div class="form-group">
  <label class="col-sm-2 control-label">Số ODO(Km)<span style="color:red">*</span></label>
  <div class="col-sm-2">
-	<input class="form-control" name="odo" value="<?php echo htmlentities($result->ODO);?>" required>
+	<input class="form-control" type="number" name="odo" value="<?php echo htmlentities($result->ODO);?>" required>
     
  </div>
 </div>

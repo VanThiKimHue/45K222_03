@@ -139,7 +139,7 @@ $oneday= 24*60*60;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{	$d=strtotime($result->NgayBDTT)			?>
+{	$d=strtotime($result->NgayBDTT);			?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->TenXe);?></td>
@@ -152,7 +152,7 @@ foreach($results as $result)
 												<?php if(($d-$newdate)==0 ):?>
 												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đến hạn bảo dưỡng</span>
 												<?php elseif(($d-$newdate)==86400):?>
-												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Sắp đến ngày bảo dưỡng</span>
+												<span class="badge badge-primary" style="font-size: 14px;">Sắp đến ngày bảo dưỡng</span>
 												<?php elseif(($d-$newdate)<0):?>
 												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đã quá hạn bảo dưỡng</span>
 												<?php elseif(($d-$newdate-$oneday)>86400):?>

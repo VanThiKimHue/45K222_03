@@ -18,6 +18,13 @@ header('location:index.php');
         
         $bike1="";
     }
+    if (!function_exists('currency_format')) {
+        function currency_format($number, $suffix = ' VNĐ') {
+            if (!empty($number)) {
+                return number_format($number, 0, ',', '.') . "{$suffix}";
+            }
+        }
+    }
 ?>
 <!doctype html>
 <html lang="en" class="no-js">
@@ -228,7 +235,7 @@ if ($ex!="")
                                 <div class="form-group">
                                             <label class="col-sm-5 control-label" style="color: #B20600; font-size: 18px">Tổng chi phí</label>
                                             <div class="col-sm-2">
-                                                <input class="form-control"  value="<?php echo htmlentities($total);?>" readonly>
+                                                <input class="form-control"  value="<?php echo currency_format($total);?>" readonly>
                                                 
                                             </div>
 					            </div>

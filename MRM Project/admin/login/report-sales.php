@@ -16,6 +16,13 @@ header('location:index.php');
     {
         $bike="";
     }
+    if (!function_exists('currency_format')) {
+        function currency_format($number, $suffix = ' VNĐ') {
+            if (!empty($number)) {
+                return number_format($number, 0, ',', '.') . "{$suffix}";
+            }
+        }
+    }
 ?>
 <!doctype html>
 <html lang="en" class="no-js">
@@ -224,7 +231,7 @@ foreach($results as $result)
                                             </td>
 											<td><?php echo htmlentities($result->NgayThue);?></td>
 											<td><?php echo htmlentities($result->NgayTra);?></td>
-                                            <td><?php echo htmlentities($result->GiaTriHopDong);?></td>
+                                            <td><?php echo currency_format($result->GiaTriHopDong);?></td>
 
 
 										</tr>
@@ -237,7 +244,7 @@ foreach($results as $result)
                                 <div class="form-group">
                                             <label class="col-sm-5 control-label" style="color: #B20600; font-size: 18px">Tổng doanh thu</label>
                                             <div class="col-sm-2">
-                                                <input class="form-control"  value="<?php echo htmlentities($total);?>" readonly>
+                                                <input class="form-control"  value="<?php echo currency_format($total);?>" readonly>
                                                 
                                             </div>
 					            </div>

@@ -130,11 +130,11 @@ top:7px;
 
 									<div class="panel-body">
 
-<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" onSubmit="return valid();">
+<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" id="form1" onSubmit="return valid();">
 <div class="form-group">
  <label class="col-sm-2 control-label">Tên Xe<span style="color:red">*</span></label>
  <div class="col-sm-2">
-  	<select class="form-control" name="tenxe" id="tenxe" required>
+  	<select class="form-control" name="tenxe" id="tenxe">
 	<option value=""> Lựa chọn </option>
 	<?php 
 	$ret="select id,TenXe from thongtinxe";
@@ -162,26 +162,33 @@ top:7px;
 
  <label class="col-sm-2 control-label">Ngày hết hạn<span style="color:red">*</span></label>
  <div class="col-sm-2">
- <input  class="todate form-control" name="ngayhet" value="" required>
+ <input  class="todate form-control" name="ngayhet" value="" required readonly>
 </div>
 </div>
 <script type="text/javascript">
-	        $('.fromdate').datepicker({
+	$('.fromdate').datepicker({
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true,
 });
-$('.todate').datepicker({
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear: true,
+$('.fromdate').datepicker().bind("change", function () {
+
+calculate();
 });
+function calculate() {
+    var d1 = $('.fromdate').datepicker('getDate','getMonth','getFullYear');
+    var d2= new Date();
+	d2.setFullYear(d1.getFullYear() +1);
+	d2.setMonth(d1.getMonth());
+	d2.setDate(d1.getDate());
+    $('.todate').val(d2.toISOString().split('T')[0]);
+  }
 </script>
 <div class="hr-dashed"></div>
 <div class="form-group">
 <label class="col-sm-2 control-label">Số tiền đã trả<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="form-control" name="phi" value="" required>
+<input class="form-control" type="number" name="phi" value="" required>
 </div>
 
 <br>
@@ -228,7 +235,17 @@ $('.todate').datepicker({
 			</div>
 		</div>
 	</div>
-
+	<script>
+$(document).ready(function() {
+$("#form1").submit(function (e) {
+if ($("#tenxe").val() == "" ) {
+$("#tenxe").css('box-shadow', '0px 0px 7px red');
+alert('Vui lòng chọn xe.');
+e.preventDefault(); 
+} 
+});
+});
+</script>
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>

@@ -176,26 +176,33 @@ foreach($results as $result)
 
  <label class="col-sm-2 control-label">Ngày hết hạn<span style="color:red">*</span></label>
  <div class="col-sm-2">
- <input  class="todate form-control" name="ngayhet" value="<?php echo htmlentities($result->NgayHet);?>" required>
+ <input  class="todate form-control" name="ngayhet" value="<?php echo htmlentities($result->NgayHet);?>" required readonly>
 </div>
 </div>
 <script type="text/javascript">
-	        $('.fromdate').datepicker({
+	$('.fromdate').datepicker({
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true,
 });
-$('.todate').datepicker({
-    dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear: true,
+$('.fromdate').datepicker().bind("change", function () {
+
+calculate();
 });
+function calculate() {
+    var d1 = $('.fromdate').datepicker('getDate','getMonth','getFullYear');
+    var d2= new Date();
+	d2.setFullYear(d1.getFullYear() +1);
+	d2.setMonth(d1.getMonth());
+	d2.setDate(d1.getDate());
+    $('.todate').val(d2.toISOString().split('T')[0]);
+  }
 </script>
 <div class="hr-dashed"></div>
 <div class="form-group">
 <label class="col-sm-2 control-label">Số tiền đã trả<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="form-control" name="phi" value="<?php echo htmlentities($result->SoTien);?>" required>
+<input class="form-control" tpye="number" name="phi" value="<?php echo htmlentities($result->SoTien);?>" required>
 </div>
 <?php }}?>
 <br>

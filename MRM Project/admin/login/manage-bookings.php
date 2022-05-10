@@ -113,10 +113,10 @@ $msg="Đơn thuê xe đã được hoàn thành";
         <h5 class="modal-title" id="staticBackdropLabel" style="font-size:x-large">Thông tin chi tiết</h5>
 
       </div>
-      <div class="modal-body">
+
         <div class="booking_viewing" style="font-size:large;">
         	
-        </div>
+
       </div>
       <div class="modal-footer">
 
@@ -141,7 +141,7 @@ $msg="Đơn thuê xe đã được hoàn thành";
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Danh sách đơn hàng</div>
+							<div class="panel-heading" style="font-size:15px;">Danh sách đơn hàng</div>
 							<div class="panel-body">
 							<?php if($error){?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
@@ -190,7 +190,7 @@ $oneday= 24*60*60;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{		$d=strtotime($result->NgayTra)			?>
+{		$d=strtotime($result->NgayTra);			?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->HoVaTen);?></td>
@@ -207,9 +207,9 @@ foreach($results as $result)
 												<?php endif; ?>
 											</td>
 											<td>
-											<?php if(($d-$newdate)==0 ):?>
+											<?php if(($d-$newdate)==0 and ($result->TinhTrang)==0):?>
 												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đến hạn hợp đồng</span>
-												<?php elseif(($newdate-$d)>0):?>
+												<?php elseif(($newdate-$d)>0 and ($result->TinhTrang)==0):?>
 												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đã quá hạn hợp đồng</span>
 												<?php elseif(($newdate-$d)<0):?>
 												<span ></span> 
@@ -228,7 +228,9 @@ foreach($results as $result)
 
 									</tbody>
 								</table>
-
+								<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
+													<a href="add-bookings.php" class="btn btn-primary" name="submit" type="button" id="submit"style="font-size: medium;">Thêm mới</a>
+												</div>
 
 
 							</div>

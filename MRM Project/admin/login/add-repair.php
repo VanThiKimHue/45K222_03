@@ -123,11 +123,11 @@ top:7px;
 
 									<div class="panel-body">
 
-<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" onSubmit="return valid();">
+<form method="post" class="form-horizontal" enctype="multipart/form-data" name="submit" id="form1" onSubmit="return valid();">
 <div class="form-group">
-<label class="col-sm-2 control-label">Biển Số Xe<span style="color:red">*</span></label>
+<label class="col-sm-2 control-label">Tên Xe<span style="color:red">*</span></label>
   <div class="col-sm-3">
-  <select class="form-control" name="xethue" id="xethue" required>
+  <select class="form-control" name="xethue" id="xethue">
 	<option value=""> Lựa chọn </option>
 	<?php $ret="select id,TenXe from thongtinxe";
 	$query= $dbh -> prepare($ret);
@@ -156,7 +156,7 @@ top:7px;
 <div class="form-group">
 <label class="col-sm-2 control-label">Số Tiền<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="form-control" name="phi" value="" required>
+<input class="form-control" type="number" name="phi" value="" required>
 </div>
 
 <br>
@@ -203,7 +203,17 @@ top:7px;
 			</div>
 		</div>
 	</div>
-
+	<script>
+$(document).ready(function() {
+$("#form1").submit(function (e) {
+if ($("#xethue").val() == "" ) {
+$("#xethue").css('box-shadow', '0px 0px 7px red');
+alert('Vui lòng chọn xe.');
+e.preventDefault(); 
+} 
+});
+});
+</script>
 	<!-- Loading Scripts -->
 	<!-- <script src="js/jquery.min.js"></script> -->
 	<script src="js/bootstrap-select.min.js"></script>

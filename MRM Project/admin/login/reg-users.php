@@ -83,11 +83,11 @@ $msg="Dữ liệu khách hàng đã được xóa";
 				<div class="row">
 					<div class="col-md-12">
 
-						<h2 class="page-title">Người Dùng</h2>
+						<h2 class="page-title">Khách Hàng</h2>
 
 						<!-- Zero Configuration Table -->
 						<div class="panel panel-default">
-							<div class="panel-heading">Danh Sách Người dùng</div>
+							<div class="panel-heading" style="font-size:15px;">Danh Sách Khách Hàng</div>
 							<div class="panel-body">
 							<?php if($error){?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>Thành Công</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
@@ -150,7 +150,9 @@ foreach($results as $result)
 
 									</tbody>
 								</table>
-
+								<div class="col-sm-8 col-sm-offset-2" align="center" style="margin-left:13%;margin-right:auto;display:block;margin-top:0%;margin-bottom:auto;">
+													<a href="add-users.php" class="btn btn-primary" name="submit" type="button" id="submit"style="font-size: medium;">Thêm mới</a>
+												</div>
 
 
 							</div>

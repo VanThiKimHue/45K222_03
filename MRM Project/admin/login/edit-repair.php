@@ -176,7 +176,7 @@ foreach($results as $result)
 <div class="form-group">
 <label class="col-sm-2 control-label">Số Tiền<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input class="form-control" name="phi" value="<?php echo htmlentities($result->SoTien);?>" required>
+<input class="form-control" type="number" name="phi" value="<?php echo htmlentities($result->SoTien);?>" required>
 </div>
 <?php }}?>
 <br>

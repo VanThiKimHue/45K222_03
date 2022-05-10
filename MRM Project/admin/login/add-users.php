@@ -109,7 +109,7 @@ $error=" Có lỗi xảy ra. Vui lòng thử lại";
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel panel-default">
-									<div class="panel-heading">Thông Tin Cơ bản</div>
+									<div class="panel-heading" style="font-size:15px;">Thông Tin Cơ bản</div>
 <?php if($error){?><div class="errorWrap"><strong>Lỗi</strong>:<?php echo htmlentities($error); ?> </div><?php }
 				else if($msg){?><div class="succWrap"><strong>Thành công</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
 
@@ -153,12 +153,12 @@ error:function (){}
 <div class="form-group">
  <label class="col-sm-2 control-label">CCCD<span style="color:red">*</span></label>
  <div class="col-sm-3">
-	<input type="text" name="cccd" class="form-control" required>
+	<input type="number" name="cccd" class="form-control" required>
  </div>
 <div class="form-group">
  <label class="col-sm-2 control-label">Số điện thoại<span style="color:red">*</span></label>
  <div class="col-sm-3">
-  <input type="text" name="sdt" class="form-control" required>
+  <input type="number" name="sdt" class="form-control" required>
  </div>
 </div>
 </div>
@@ -166,7 +166,7 @@ error:function (){}
 <div class="form-group">
  <label class="col-sm-2 control-label">Ngày sinh<span style="color:red">*</span></label>
  <div class="col-sm-3">
- <input type="date" class="form-control" name="bdate"  required>
+ <input type="date" class="form-control" name="bdate" max="<?php echo htmlentities(date('Y-m-d'))?>"  required>
 </div>
 </div>
 

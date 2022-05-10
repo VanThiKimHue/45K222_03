@@ -188,7 +188,7 @@ continue;
 <div class="form-group">
 <label class="col-sm-2 control-label">Giá theo ngày(VND)<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="giathue" class="form-control" value="<?php echo htmlentities($result->GiaThueTheoNgay);?>" required>
+<input type="number" name="giathue" class="form-control" value="<?php echo htmlentities($result->GiaThueTheoNgay);?>" required>
 </div>
 <label class="col-sm-2 control-label">Loại xe<span style="color:red">*</span></label>
 <div class="col-sm-2">
@@ -206,11 +206,11 @@ continue;
 <div class="form-group">
 <label class="col-sm-2 control-label">Năm sản xuất<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="namsx" class="form-control" value="<?php echo htmlentities($result->NamSanXuat);?>" required>
+<input type="number" name="namsx" class="form-control" max="<?php echo htmlentities(date('Y'))?>"  value="<?php echo htmlentities($result->NamSanXuat);?>" required>
 </div>
 <label class="col-sm-2 control-label">Năm đăng ký lần đầu<span style="color:red">*</span></label>
 <div class="col-sm-2">
-<input type="text" name="namdk" class="form-control" value="<?php echo htmlentities($result->NamDK);?>" required>
+<input type="number" name="namdk" class="form-control" max="<?php echo htmlentities(date('Y'))?>"  value="<?php echo htmlentities($result->NamDK);?>" required>
 </div>
 </div>
 </div>

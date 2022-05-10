@@ -97,11 +97,8 @@ $msg=" 	Dữ liệu bảo hiểm xe đã được xóa";
 											<th>Ngày mua</th>
                                             <th>Ngày hết hạn</th>
 											<th>Số tiền đã trả</th>
-                                            <th>Ngày cập nhật</th>
+                                            <th>Cảnh báo</th>
                                             <th>Chỉnh Sửa</th>
-											<!-- <th>Loại Xe</th>
-											<th>Năm Sản Xuất</th>
-											<th>Chỉnh Sửa</th> -->
 										</tr>
 									</thead>
 									<tfoot>
@@ -111,11 +108,8 @@ $msg=" 	Dữ liệu bảo hiểm xe đã được xóa";
 											<th>Ngày mua</th>
                                             <th>Ngày hết hạn</th>
 											<th>Số tiền đã trả</th>
-                                            <th>Ngày cập nhật</th>
+                                            <th>Cảnh báo</th>
                                             <th>Chỉnh Sửa</th>
-											<!-- <th>Loại Xe</th>
-											<th>Năm Sản Xuất</th>
-											<th>Chỉnh Sửa</th> -->
 										</tr>
 										</tr>
 									</tfoot>
@@ -128,17 +122,28 @@ $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
 $cnt=1;
+$date = date('Y-m-d');
+$newdate = strtotime ( '+0 day' , strtotime ( $date ) ) ;
+$oneday= 24*60*60;
 if($query->rowCount() > 0)
 {
 foreach($results as $result)
-{				?>
+{		$d=strtotime($result->NgayHet);	?>
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
 											<td><?php echo htmlentities($result->TenXe);?></td>
 											<td><?php echo htmlentities($result->NgayMua);?></td>
 											<td><?php echo htmlentities($result->NgayHet);?></td>
                                             <td><?php echo htmlentities($result->SoTien);?></td>
-											<td><?php echo htmlentities($result->NgayCapNhat);?></td>
+											<td>
+												<?php if(($d-$newdate)>0 and ($d-$newdate) <= (86400*5)):?>
+												<span class="badge badge-primary" style="font-size: 14px;">Sắp đến ngày hết hạn</span>
+												<?php elseif(($d-$newdate)==0):?>
+												<span class="badge badge-danger" style="background-color: red; font-size: 14px;">Đến ngày hết hạn</span>
+												<?php elseif(($d-$newdate) > (86400*5)):?>
+												<span ></span> 
+												<?php endif; ?>
+											</td>
 											
 		<td><a href="edit-insurance.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
 <a href="manage-insurance.php?del=<?php echo $result->id;?>" onclick="return confirm('Bạn có muốn xóa hồ sơ xe');"><i class="fa fa-close"></i></a></td>
